@@ -23,7 +23,7 @@ public class VibrationPlugin implements MethodCallHandler {
 
     public static void registerWith(Registrar registrar) {
         final MethodChannel channel = new MethodChannel(registrar.messenger(), CHANNEL);
-        channel.setMethodCallHandler(new VibrationPlugin());
+        channel.setMethodCallHandler(new VibrationPlugin(registrar));
     }
 
     private void vibrate(long duration) {
@@ -60,15 +60,14 @@ public class VibrationPlugin implements MethodCallHandler {
 
             break;
         case "vibrate":
-            long duration = call.argument("duration");
+            int duration = call.argument("duration");
+            List<Integer> pattern = call.argument("pattern");
+            int repeat = call.argument("repeat");
 
-            if (duration > 0) {
-                vibrate(duration);
-            } else {
-                List<Integer> pattern = call.argument("pattern");
-                int repeat = call.argument("repeat");
-
+            if (pattern.size() > 0) {
                 vibrate(pattern, repeat);
+            } else {
+                vibrate(duration);
             }
 
             result.success(null);

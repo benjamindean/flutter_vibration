@@ -31,6 +31,10 @@ Used to check if the target device has vibration capabilities. Returns `bool`.
 Vibration.vibrate(duration: [int], pattern: [List<int>], repeat: [int])
 ```
 
+### Vibration.cancel()
+
+Stop ongoing vibration.
+
 Vibrate device for a certain duration or by pattern. You can either pass `duration` or `pattern` argument - not both at the same time.
 
 ## Android

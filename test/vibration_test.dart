@@ -29,7 +29,7 @@ void main() {
       <Matcher>[
         isMethodCall('vibrate', arguments: <String, Object>{
           'duration': 100,
-          'pattern': null,
+          'pattern': [],
           'repeat': -1
         })
       ],
@@ -42,7 +42,7 @@ void main() {
       log,
       <Matcher>[
         isMethodCall('vibrate', arguments: <String, Object>{
-          'duration': null,
+          'duration': 500,
           'pattern': [100, 200, 400],
           'repeat': 1
         })
