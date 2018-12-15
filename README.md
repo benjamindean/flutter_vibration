@@ -6,12 +6,12 @@ A plugin for handling Vibration API in Flutter apps.
 
 1. Add `vibration` to the dependencies section of `pubspec.yaml`.
 
-```
-dependencies:
-  vibration:
-    git:
-      url: git@github.com:benjamindean/flutter_vibration.git
-```
+    ```
+    dependencies:
+      vibration:
+        git:
+          url: git@github.com:benjamindean/flutter_vibration.git
+    ```
 
 2. Import package:
 
