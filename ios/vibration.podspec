@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 Handle vibration on iOS and Android
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/benjamindean/flutter_vibration'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Benjamin Dean' => 'email@example.com' }
   s.source           = { :path => '.' }
