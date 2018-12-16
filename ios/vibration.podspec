@@ -3,8 +3,8 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'vibration'
-  s.version          = '0.0.1'
-  s.summary          = 'Handle vibration on iOS and Android'
+  s.version          = '0.0.2'
+  s.summary          = 'A plugin for handling Vibration API on iOS and Android devices'
   s.description      = <<-DESC
 Handle vibration on iOS and Android
                        DESC

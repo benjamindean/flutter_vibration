@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/benjamindean/flutter_vibration.svg?branch=master)](https://travis-ci.org/benjamindean/flutter_vibration)
 
-A plugin for handling Vibration API in Flutter apps.
+A plugin for handling Vibration API on iOS and Android devices.
 
 ## Getting Started
 
