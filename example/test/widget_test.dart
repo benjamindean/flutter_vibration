@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:vibration_example/main.dart';
+import '../lib/main.dart';
 
 void main() {
   testWidgets('Buttons rendered', (WidgetTester tester) async {
