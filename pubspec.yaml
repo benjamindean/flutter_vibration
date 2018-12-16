@@ -1,7 +1,7 @@
 name: vibration
 description: Handle vibration on iOS and Android
 version: 0.0.1
-author: Benjamin Dean <benjaminabel@protonmail.com>
+author: Benjamin Dean <benjaminabel@pm.me>
 homepage: https://github.com/benjamindean/flutter_vibration
 
 environment:
