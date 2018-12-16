@@ -1,5 +1,7 @@
 # Vibration
 
+[![Build Status](https://travis-ci.org/benjamindean/flutter_vibration.svg?branch=master)](https://travis-ci.org/benjamindean/flutter_vibration)
+
 A plugin for handling Vibration API in Flutter apps.
 
 ## Getting Started
@@ -40,7 +42,8 @@ Stop ongoing vibration.
 ## Android
 
 Supports vibration with duration and pattern. On Android 8 (Oreo) and above, uses the [VibrationEffect](https://developer.android.com/reference/android/os/VibrationEffect) class.
+For the rest of the usage instructions, see [Vibrator](https://developer.android.com/reference/android/os/Vibrator) class documentation.
 
-### iOS
+## iOS
 
 Only supports singular vibrations with 500ms duration.
