@@ -9,9 +9,9 @@ void main() {
 
     expect(
       find.byWidgetPredicate(
-        (Widget widget) => widget is Text && widget.data.startsWith('Vibrate'),
+        (Widget widget) => widget is RaisedButton,
       ),
-      findsWidgets,
+      findsNWidgets(3),
     );
   });
 }

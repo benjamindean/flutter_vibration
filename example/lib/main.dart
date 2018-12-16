@@ -14,19 +14,19 @@ class VibratingApp extends StatelessWidget {
         body: Center(
           child: Column(
             children: <Widget>[
-              MaterialButton(
+              RaisedButton(
                 child: Text('Vibrate for default 500ms'),
                 onPressed: () {
                   Vibration.vibrate();
                 },
               ),
-              MaterialButton(
+              RaisedButton(
                 child: Text('Vibrate for 1000ms'),
                 onPressed: () {
                   Vibration.vibrate(duration: 1000);
                 },
               ),
-              MaterialButton(
+              RaisedButton(
                 child: Text('Vibrate with pattern 100v-200p-300v-400p-500v'),
                 onPressed: () {
                   Vibration.vibrate(pattern: [100, 200, 300, 400, 500]);
