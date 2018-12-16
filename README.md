@@ -6,12 +6,12 @@ A plugin for handling Vibration API in Flutter apps.
 
 1. Add `vibration` to the dependencies section of `pubspec.yaml`.
 
-```
-dependencies:
-  vibration:
-    git:
-      url: git@github.com:benjamindean/flutter_vibration.git
-```
+    ```
+    dependencies:
+      vibration:
+        git:
+          url: git@github.com:benjamindean/flutter_vibration.git
+    ```
 
 2. Import package:
 
@@ -31,11 +31,11 @@ Used to check if the target device has vibration capabilities. Returns `bool`.
 Vibration.vibrate(duration: [int], pattern: [List<int>], repeat: [int])
 ```
 
+Vibrate device for a certain duration or by pattern. You can either pass `duration` or `pattern` argument - not both at the same time.
+
 ### Vibration.cancel()
 
 Stop ongoing vibration.
-
-Vibrate device for a certain duration or by pattern. You can either pass `duration` or `pattern` argument - not both at the same time.
 
 ## Android
 
