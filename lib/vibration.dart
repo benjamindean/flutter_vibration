@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-/// Platform-independend vibration methods
+/// Platform-independend vibration methods.
 class Vibration {
-  /// Method channel to communicate with native code
+  /// Method channel to communicate with native code.
   static const MethodChannel _channel = const MethodChannel('vibration');
 
-  /// Check if vibrator is available on device
+  /// Check if vibrator is available on device.
   /// 
   /// ```dart
   /// if (Vibration.hasVibrator()) {
@@ -16,8 +16,8 @@ class Vibration {
   /// ```
   static Future hasVibrator() => _channel.invokeMethod("hasVibrator");
 
-  /// Vibrate with [duration] or [pattern]
-  /// The default vibration duration is 500ms
+  /// Vibrate with [duration] or [pattern].
+  /// The default vibration duration is 500ms.
   /// 
   /// ```dart
   /// Vibration.vibrate(duration: 1000);
@@ -29,7 +29,7 @@ class Vibration {
       _channel.invokeMethod("vibrate",
           {"duration": duration, "pattern": pattern, "repeat": repeat});
 
-  /// Cancel ongoing vibration
+  /// Cancel ongoing vibration.
   /// 
   /// ```dart
   /// Vibration.vibrate(duration: 10000);
