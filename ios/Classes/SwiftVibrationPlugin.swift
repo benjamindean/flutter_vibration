@@ -18,6 +18,8 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
         case "vibrate":
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             result(nil)
+        case "cancel":
+            result(nil)
         default:
             result(FlutterMethodNotImplemented)
         }
