@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-/// Platform-independend vibration methods.
+/// Platform-independent vibration methods.
 class Vibration {
   /// Method channel to communicate with native code.
   static const MethodChannel _channel = const MethodChannel('vibration');
