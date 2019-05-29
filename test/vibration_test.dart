@@ -49,4 +49,14 @@ void main() {
       ],
     );
   });
+
+  test('cancel vibration', () async {
+    await Vibration.cancel();
+    expect(
+      log,
+      <Matcher>[
+        isMethodCall('cancel', arguments: null)
+      ],
+    );
+  });
 }
