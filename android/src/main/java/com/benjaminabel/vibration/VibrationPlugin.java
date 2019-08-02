@@ -26,10 +26,15 @@ public class VibrationPlugin implements MethodCallHandler {
         channel.setMethodCallHandler(new VibrationPlugin(registrar));
     }
 
-    private void vibrate(long duration) {
+    private void vibrate(long duration, int amplitude) {
         if (vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE));
+                if (vibrator.hasAmplitudeControl()) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(duration, amplitude));
+                } else {
+                    vibrator.vibrate(VibrationEffect.createOneShot(duration,
+                            VibrationEffect.DEFAULT_AMPLITUDE));
+                }
             } else {
                 vibrator.vibrate(duration);
             }
@@ -46,6 +51,32 @@ public class VibrationPlugin implements MethodCallHandler {
         if (vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 vibrator.vibrate(VibrationEffect.createWaveform(patternLong, repeat));
+            } else {
+                vibrator.vibrate(patternLong, repeat);
+            }
+        }
+    }
+
+    private void vibrate(List<Integer> pattern, int repeat, List<Integer> intensities) {
+        long[] patternLong = new long[pattern.size()];
+        int[] intensitiesArray = new int[intensities.size()];
+
+        for (int i = 0; i < patternLong.length; i++) {
+            patternLong[i] = pattern.get(i).intValue();
+        }
+
+        for (int i = 0; i < intensitiesArray.length; i++) {
+            intensitiesArray[i] = intensities.get(i);
+        }
+
+        if (vibrator.hasVibrator()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (vibrator.hasAmplitudeControl()) {
+                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, intensitiesArray,
+                            repeat));
+                } else {
+                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, repeat));
+                }
             } else {
                 vibrator.vibrate(patternLong, repeat);
             }
@@ -74,11 +105,15 @@ public class VibrationPlugin implements MethodCallHandler {
             int duration = call.argument("duration");
             List<Integer> pattern = call.argument("pattern");
             int repeat = call.argument("repeat");
+            List<Integer> intensities = call.argument("intensities");
+            int amplitude = call.argument("amplitude");
 
-            if (pattern.size() > 0) {
+            if (pattern.size() > 0 && intensities.size() > 0) {
+                vibrate(pattern, repeat, intensities);
+            } else if (pattern.size() > 0) {
                 vibrate(pattern, repeat);
             } else {
-                vibrate(duration);
+                vibrate(duration, amplitude);
             }
 
             result.success(null);
