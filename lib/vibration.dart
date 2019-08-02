@@ -16,6 +16,10 @@ class Vibration {
   /// ```
   static Future hasVibrator() => _channel.invokeMethod("hasVibrator");
 
+  /// Check if the vibrator has amplitude control.
+  static Future hasAmplitudeControl() =>
+      _channel.invokeMethod("hasAmplitudeControl");
+
   /// Vibrate with [duration] or [pattern].
   /// The default vibration duration is 500ms.
   /// 

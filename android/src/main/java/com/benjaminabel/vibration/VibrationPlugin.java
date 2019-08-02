@@ -59,6 +59,17 @@ public class VibrationPlugin implements MethodCallHandler {
             result.success(vibrator.hasVibrator());
 
             break;
+        case "hasAmplitudeControl":
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                result.success(vibrator.hasAmplitudeControl());
+            } else {
+                // For earlier API levels, return false rather than raising a
+                // MissingPluginException in order to allow applications to handle
+                // non-existence gracefully.
+                result.success(false);
+            }
+
+            break;
         case "vibrate":
             int duration = call.argument("duration");
             List<Integer> pattern = call.argument("pattern");

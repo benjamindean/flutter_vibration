@@ -31,6 +31,17 @@ if (Vibration.hasVibrator()) {
 }
 ```
 
+### hasAmplitudeControl
+
+Check if the target device has the ability to control the vibration amplitude,
+introduced in Android 8.0 Oreo - false for all earlier API levels.
+
+``` dart
+if (Vibration.hasAmplitudeControl()) {
+    // Vibrate with effect
+}
+```
+
 ### vibrate
 
 #### With specific duration (for example, 1 second):
