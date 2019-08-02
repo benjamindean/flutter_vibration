@@ -38,7 +38,7 @@ introduced in Android 8.0 Oreo - false for all earlier API levels.
 
 ``` dart
 if (Vibration.hasAmplitudeControl()) {
-    // Vibrate with effect
+    Vibration.vibrate(amplitude: 128);
 }
 ```
 
@@ -52,10 +52,22 @@ Vibration.vibrate(duration: 1000);
 
 Default duration is 500ms. 
 
-#### With pattern (wait 500ms, vibrate 1s, waint 500ms):
+#### With specific duration and specific amplitude (if supported):
 
 ``` dart
-Vibration.vibrate(pattern: [500, 1000, 500]);
+Vibration.vibrate(duration: 1000, amplitude: 128);
+```
+
+#### With pattern (wait 500ms, vibrate 1s, wait 500ms, vibrate 2s):
+
+``` dart
+Vibration.vibrate(pattern: [500, 1000, 500, 2000]);
+```
+
+#### With pattern (wait 500ms, vibrate 1s, wait 500ms, vibrate 2s) at varying intensities (1 - min, 255 - max):
+
+``` dart
+Vibration.vibrate(pattern: [500, 1000, 500, 2000], intensities: [1, 255]);
 ```
 
 ### cancel
