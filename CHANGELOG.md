@@ -1,3 +1,7 @@
+## 1.2.1
+
+- Maintenance release
+
 ## 1.2.0
 
 - Add support for amplitude control under Android 8.0 and later (by [@pmundt](https://github.com/pmundt))
