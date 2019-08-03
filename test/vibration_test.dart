@@ -30,7 +30,9 @@ void main() {
         isMethodCall('vibrate', arguments: <String, Object>{
           'duration': 100,
           'pattern': [],
-          'repeat': -1
+          'repeat': -1,
+          'amplitude': -1,
+          'intensities': []
         })
       ],
     );
@@ -44,7 +46,9 @@ void main() {
         isMethodCall('vibrate', arguments: <String, Object>{
           'duration': 500,
           'pattern': [100, 200, 400],
-          'repeat': 1
+          'repeat': 1,
+          'amplitude': -1,
+          'intensities': []
         })
       ],
     );
@@ -54,9 +58,7 @@ void main() {
     await Vibration.cancel();
     expect(
       log,
-      <Matcher>[
-        isMethodCall('cancel', arguments: null)
-      ],
+      <Matcher>[isMethodCall('cancel', arguments: null)],
     );
   });
 }
