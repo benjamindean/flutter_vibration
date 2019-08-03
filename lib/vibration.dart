@@ -16,18 +16,38 @@ class Vibration {
   /// ```
   static Future hasVibrator() => _channel.invokeMethod("hasVibrator");
 
-  /// Vibrate with [duration] or [pattern].
+  /// Check if the vibrator has amplitude control.
+  ///
+  /// ```dart
+  /// if (Vibration.hasAmplitudeControl()) {
+  ///   Vibration.vibrate(amplitude: 128);
+  /// }
+  /// ```
+  static Future hasAmplitudeControl() =>
+      _channel.invokeMethod("hasAmplitudeControl");
+
+  /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].
+  ///
   /// The default vibration duration is 500ms.
+  /// Amplitude is a range from 1 to 255, if supported.
   /// 
   /// ```dart
   /// Vibration.vibrate(duration: 1000);
+  ///
+  /// if (Vibration.hasAmplitudeControl()) {
+  ///   Vibration.vibrate(duration: 1000, amplitude: 1);
+  ///   Vibration.vibrate(duration: 1000, amplitude: 255);
+  /// }
   /// ```
   static Future<void> vibrate(
           {int duration = 500,
           List<int> pattern = const [],
-          int repeat = -1}) =>
+          int repeat = -1,
+          List<int> intensities = const [],
+          int amplitude = -1}) =>
       _channel.invokeMethod("vibrate",
-          {"duration": duration, "pattern": pattern, "repeat": repeat});
+          {"duration": duration, "pattern": pattern, "repeat": repeat,
+           "amplitude": amplitude, "intensities": intensities});
 
   /// Cancel ongoing vibration.
   /// 
