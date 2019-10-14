@@ -1,4 +1,4 @@
-package com.benjaminabel.vibrationexample;
+package com.benjaminabel.vibration_example;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

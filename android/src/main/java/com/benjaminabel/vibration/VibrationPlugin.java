@@ -26,14 +26,14 @@ public class VibrationPlugin implements MethodCallHandler {
         channel.setMethodCallHandler(new VibrationPlugin(registrar));
     }
 
+    @SuppressWarnings("deprecation")
     private void vibrate(long duration, int amplitude) {
         if (vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if (vibrator.hasAmplitudeControl()) {
                     vibrator.vibrate(VibrationEffect.createOneShot(duration, amplitude));
                 } else {
-                    vibrator.vibrate(VibrationEffect.createOneShot(duration,
-                            VibrationEffect.DEFAULT_AMPLITUDE));
+                    vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE));
                 }
             } else {
                 vibrator.vibrate(duration);
@@ -41,6 +41,7 @@ public class VibrationPlugin implements MethodCallHandler {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void vibrate(List<Integer> pattern, int repeat) {
         long[] patternLong = new long[pattern.size()];
 
@@ -57,6 +58,7 @@ public class VibrationPlugin implements MethodCallHandler {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void vibrate(List<Integer> pattern, int repeat, List<Integer> intensities) {
         long[] patternLong = new long[pattern.size()];
         int[] intensitiesArray = new int[intensities.size()];
@@ -72,8 +74,7 @@ public class VibrationPlugin implements MethodCallHandler {
         if (vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if (vibrator.hasAmplitudeControl()) {
-                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, intensitiesArray,
-                            repeat));
+                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, intensitiesArray, repeat));
                 } else {
                     vibrator.vibrate(VibrationEffect.createWaveform(patternLong, repeat));
                 }
@@ -127,7 +128,6 @@ public class VibrationPlugin implements MethodCallHandler {
             break;
         default:
             result.notImplemented();
-
         }
     }
 }
