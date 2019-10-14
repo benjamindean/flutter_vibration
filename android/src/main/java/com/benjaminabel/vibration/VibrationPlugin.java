@@ -26,6 +26,7 @@ public class VibrationPlugin implements MethodCallHandler {
         channel.setMethodCallHandler(new VibrationPlugin(registrar));
     }
 
+    @SuppressWarnings("deprecation")
     private void vibrate(long duration, int amplitude) {
         if (vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
