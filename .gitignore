@@ -8,3 +8,5 @@ pubspec.lock
 .idea/
 build/
 doc/
+
+flutter_export_environment.sh
