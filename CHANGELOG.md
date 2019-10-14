@@ -1,3 +1,7 @@
+## 1.2.2
+
+- Suppress deprecation warnings for `vibrate` method
+
 ## 1.2.1
 
 - Maintenance release
