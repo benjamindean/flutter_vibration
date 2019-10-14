@@ -8,7 +8,7 @@ class Vibration {
   static const MethodChannel _channel = const MethodChannel('vibration');
 
   /// Check if vibrator is available on device.
-  /// 
+  ///
   /// ```dart
   /// if (Vibration.hasVibrator()) {
   ///   Vibration.vibrate();
@@ -30,7 +30,7 @@ class Vibration {
   ///
   /// The default vibration duration is 500ms.
   /// Amplitude is a range from 1 to 255, if supported.
-  /// 
+  ///
   /// ```dart
   /// Vibration.vibrate(duration: 1000);
   ///
@@ -45,12 +45,16 @@ class Vibration {
           int repeat = -1,
           List<int> intensities = const [],
           int amplitude = -1}) =>
-      _channel.invokeMethod("vibrate",
-          {"duration": duration, "pattern": pattern, "repeat": repeat,
-           "amplitude": amplitude, "intensities": intensities});
+      _channel.invokeMethod("vibrate", {
+        "duration": duration,
+        "pattern": pattern,
+        "repeat": repeat,
+        "amplitude": amplitude,
+        "intensities": intensities
+      });
 
   /// Cancel ongoing vibration.
-  /// 
+  ///
   /// ```dart
   /// Vibration.vibrate(duration: 10000);
   /// Vibration.cancel();
