@@ -92,3 +92,19 @@ For the rest of the usage instructions, see [Vibrator](https://developer.android
 ## iOS
 
 Only supports singular vibrations with 500ms duration.
+
+## Known issues
+
+"Conditions must have a static type of 'bool'"
+If you have this error, add 'await':
+
+``` dart
+//HasVibrate uses the Future class, so it has to use async to work:
+
+void vibrate() async {
+ if (await Vibration.hasVibrator()){
+   //Vibration.vibrate();
+   Vibration.vibrate(duration: 100);
+  }
+}
+```
