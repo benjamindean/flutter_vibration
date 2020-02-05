@@ -3,14 +3,14 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'vibration'
-  s.version          = '1.2.2'
+  s.version          = '1.2.3'
   s.summary          = 'A plugin for handling Vibration API on iOS and Android devices'
   s.description      = <<-DESC
 Handle vibration on iOS and Android
                        DESC
   s.homepage         = 'https://github.com/benjamindean/flutter_vibration'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Benjamin Dean' => 'email@example.com' }
+  s.author           = { 'Benjamin Dean' => 'benjaminabel.cellardoor@gmail.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'

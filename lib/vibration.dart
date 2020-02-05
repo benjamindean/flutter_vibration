@@ -10,20 +10,20 @@ class Vibration {
   /// Check if vibrator is available on device.
   ///
   /// ```dart
-  /// if (Vibration.hasVibrator()) {
+  /// if (await Vibration.hasVibrator()) {
   ///   Vibration.vibrate();
   /// }
   /// ```
-  static Future hasVibrator() => _channel.invokeMethod("hasVibrator");
+  static Future<bool> hasVibrator() => _channel.invokeMethod("hasVibrator");
 
   /// Check if the vibrator has amplitude control.
   ///
   /// ```dart
-  /// if (Vibration.hasAmplitudeControl()) {
+  /// if (await Vibration.hasAmplitudeControl()) {
   ///   Vibration.vibrate(amplitude: 128);
   /// }
   /// ```
-  static Future hasAmplitudeControl() =>
+  static Future<bool> hasAmplitudeControl() =>
       _channel.invokeMethod("hasAmplitudeControl");
 
   /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].
@@ -34,7 +34,7 @@ class Vibration {
   /// ```dart
   /// Vibration.vibrate(duration: 1000);
   ///
-  /// if (Vibration.hasAmplitudeControl()) {
+  /// if (await Vibration.hasAmplitudeControl()) {
   ///   Vibration.vibrate(duration: 1000, amplitude: 1);
   ///   Vibration.vibrate(duration: 1000, amplitude: 255);
   /// }
@@ -45,13 +45,16 @@ class Vibration {
           int repeat = -1,
           List<int> intensities = const [],
           int amplitude = -1}) =>
-      _channel.invokeMethod("vibrate", {
-        "duration": duration,
-        "pattern": pattern,
-        "repeat": repeat,
-        "amplitude": amplitude,
-        "intensities": intensities
-      });
+      _channel.invokeMethod(
+        "vibrate",
+        {
+          "duration": duration,
+          "pattern": pattern,
+          "repeat": repeat,
+          "amplitude": amplitude,
+          "intensities": intensities
+        },
+      );
 
   /// Cancel ongoing vibration.
   ///

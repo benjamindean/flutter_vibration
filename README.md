@@ -10,7 +10,7 @@ A plugin for handling Vibration API on iOS and Android devices. [API docs.](http
 
     ``` yml
     dependencies:
-      vibration: 1.2.2
+      vibration: ^1.2.3
     ```
 
 2. Import package:
@@ -26,7 +26,7 @@ A plugin for handling Vibration API on iOS and Android devices. [API docs.](http
 Check if the target device has vibration capabilities.
 
 ``` dart
-if (Vibration.hasVibrator()) {
+if (await Vibration.hasVibrator()) {
     Vibration.vibrate();
 }
 ```
@@ -37,7 +37,7 @@ Check if the target device has the ability to control the vibration amplitude,
 introduced in Android 8.0 Oreo - false for all earlier API levels.
 
 ``` dart
-if (Vibration.hasAmplitudeControl()) {
+if (await Vibration.hasAmplitudeControl()) {
     Vibration.vibrate(amplitude: 128);
 }
 ```

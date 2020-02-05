@@ -1,3 +1,7 @@
+## 1.2.3
+
+- Add proper indication of async methods to docs (by [@qqgg231](https://github.com/qqgg231))
+
 ## 1.2.2
 
 - Suppress deprecation warnings for `vibrate` method

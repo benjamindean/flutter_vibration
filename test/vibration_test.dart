@@ -16,6 +16,7 @@ void main() {
 
   test('hasVibrator', () async {
     bool hasVibrator = await Vibration.hasVibrator();
+
     expect(
       hasVibrator,
       equals(null),
@@ -24,6 +25,7 @@ void main() {
 
   test('vibrate with duration', () async {
     await Vibration.vibrate(duration: 100);
+
     expect(
       log,
       <Matcher>[
@@ -40,6 +42,7 @@ void main() {
 
   test('vibrate with pattern', () async {
     await Vibration.vibrate(pattern: [100, 200, 400], repeat: 1);
+
     expect(
       log,
       <Matcher>[
@@ -56,6 +59,7 @@ void main() {
 
   test('cancel vibration', () async {
     await Vibration.cancel();
+
     expect(
       log,
       <Matcher>[isMethodCall('cancel', arguments: null)],
