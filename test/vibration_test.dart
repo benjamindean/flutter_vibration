@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vibration/vibration.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   const MethodChannel channel = MethodChannel('vibration');
   final List<MethodCall> log = <MethodCall>[];
 
