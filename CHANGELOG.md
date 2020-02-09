@@ -1,3 +1,7 @@
+## 1.2.4
+
+- Move `flutter_test` to dev_dependencies. Fixes issue #24.
+
 ## 1.2.3
 
 - Add proper indication of async methods to docs (by [@qqgg231](https://github.com/qqgg231))
