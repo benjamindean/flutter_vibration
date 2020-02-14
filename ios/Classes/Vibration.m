@@ -25,6 +25,7 @@
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
+    self.isDevice = (TARGET_OS_SIMULATOR == 0);
   if ([@"hasVibrator" isEqualToString:call.method]) {
       result([[NSNumber alloc] initWithBool:self.isDevice]);
     result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
