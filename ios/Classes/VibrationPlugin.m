@@ -1,8 +1,8 @@
 #import "VibrationPlugin.h"
-#import <vibration/vibration-Swift.h>
+#import "Vibration.h"
 
 @implementation VibrationPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftVibrationPlugin registerWithRegistrar:registrar];
+  [Vibration registerWithRegistrar:registrar];
 }
 @end
