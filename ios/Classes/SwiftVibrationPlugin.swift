@@ -33,12 +33,7 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
                 if let pattern = myArgs["pattern"] as? Array<Int> {
                     if pattern.count>0 {
                         if #available(iOS 13, *) {
-                            var engine: CHHapticEngine!
-                            do {
-                                engine = try CHHapticEngine()
-                            } catch let error {
-                                print("Engine Creation Error: \(error)")
-                            }
+                            var engine: CHHapticEngine?
                             if CHHapticEngine.capabilitiesForHardware().supportsHaptics {
                                 var hapticpattern = [CHHapticEvent]()
                                 var i: Int=0
@@ -64,12 +59,13 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
                                     }  
                                 }
                                 do {
+                                    engine = try CHHapticEngine()
                                     let patterntoplay = try CHHapticPattern(events: hapticpattern, parameters: [])
                                     let player = try engine.makePlayer(with: patterntoplay)
-                                    engine.start(completionHandler:nil)
+                                    try engine.start(completionHandler:nil)
                                     try player.start(atTime: 0)
                                     engine.stop(completionHandler: nil)
-                                } catch {
+                                } catch let error{
                                     print("Failed to play pattern: \(error.localizedDescription).")
                                 }
                             }  
