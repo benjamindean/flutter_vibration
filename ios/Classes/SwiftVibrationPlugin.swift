@@ -32,53 +32,55 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
             if let myArgs = args as? [String: Any] {
                 if let pattern = myArgs["pattern"] as? Array<Int> {
                     if pattern.count>0 {
-                    if #available(iOS 13, *) {
-                var engine: CHHapticEngine!
-            do {
-            engine = try CHHapticEngine()
-            } catch let error {
-            print("Engine Creation Error: \(error)")
-            }
-            if CHHapticEngine.capabilitiesForHardware().supportsHaptics {
-                var hapticpattern = [CHHapticEvent]()
-                var i: Int=0
-                var rel: Double=0.0
-                if let amplitudes = myArgs["intensities"] as? Array<Int> {
-                    while i<amplitudes.count {
-                        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(amplitudes[i])/255.0))
-                        let event = CHHapticEvent(eventType: .hapticContinuous, parameters:[intensity], relativeTime: rel, duration: Double(Double(pattern[i])/1000.0))
-                        rel+=Double(Double(pattern[i])/1000.0)
-                        i+=1
-                        hapticpattern.append(event)
-                    }
+                        if #available(iOS 13, *) {
+                            var engine: CHHapticEngine!
+                            do {
+                                engine = try CHHapticEngine()
+                            } catch let error {
+                                print("Engine Creation Error: \(error)")
+                            }
+                            if CHHapticEngine.capabilitiesForHardware().supportsHaptics {
+                                var hapticpattern = [CHHapticEvent]()
+                                var i: Int=0
+                                var rel: Double=0.0
+                                if let amplitudes = myArgs["intensities"] as? Array<Int> {
+                                    while i<amplitudes.count {
+                                        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(amplitudes[i])/255.0))
+                                        let event = CHHapticEvent(eventType: .hapticContinuous, parameters:[intensity], relativeTime: rel, duration: Double(Double(pattern[i])/1000.0))
+                                        rel+=Double(Double(pattern[i])/1000.0)
+                                        i+=1
+                                        hapticpattern.append(event)
+                                    }
 
-                }
-                else {
-                        while i<pattern.count {
-                        rel+=Double(Double(pattern[i])/1000.0)
-                        i+=1
-                        let event = CHHapticEvent(eventType: .hapticContinuous, parameters:[], relativeTime: rel, duration: Double(Double(pattern[i])/1000.0))
-                        rel+=Double(Double(pattern[i])/1000.0)
-                        i+=1
-                        hapticpattern.append(event)
-                    }  
-                }
-    do {
-        let patterntoplay = try CHHapticPattern(events: hapticpattern, parameters: [])
-        let player = try engine?.makePlayer(with: patterntoplay)
-        try player?.start(atTime: 0)
-    } catch {
-        print("Failed to play pattern: \(error.localizedDescription).")
-    }
-            }  
-            else {
+                                }
+                                else {
+                                    while i<pattern.count {
+                                        rel+=Double(Double(pattern[i])/1000.0)
+                                        i+=1
+                                        let event = CHHapticEvent(eventType: .hapticContinuous, parameters:[], relativeTime: rel, duration: Double(Double(pattern[i])/1000.0))
+                                        rel+=Double(Double(pattern[i])/1000.0)
+                                        i+=1
+                                        hapticpattern.append(event)
+                                    }  
+                                }
+                                do {
+                                    let patterntoplay = try CHHapticPattern(events: hapticpattern, parameters: [])
+                                    let player = try engine.makePlayer(with: patterntoplay)
+                                    engine.start(completionHandler:nil)
+                                    try player.start(atTime: 0)
+                                    engine.stop(completionHandler: nil)
+                                } catch {
+                                    print("Failed to play pattern: \(error.localizedDescription).")
+                                }
+                            }  
+                            else {
                                     var i: Int=0
-                    while i<pattern.count {
-                    usleep(useconds_t(pattern[i] * ms))
-                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                    i+=2
-                    }
-            }          
+                                    while i<pattern.count {
+                                        usleep(useconds_t(pattern[i] * ms))
+                                        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                                        i+=2
+                                    }
+                            }          
             }
                     }
             else {
