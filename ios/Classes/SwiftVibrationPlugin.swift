@@ -61,10 +61,10 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
                                 do {
                                     engine = try CHHapticEngine()
                                     let patterntoplay = try CHHapticPattern(events: hapticpattern, parameters: [])
-                                    let player = try engine.makePlayer(with: patterntoplay)
-                                    try engine.start(completionHandler:nil)
-                                    try player.start(atTime: 0)
-                                    engine.stop(completionHandler: nil)
+                                    let player = try engine!.makePlayer(with: patterntoplay)
+                                    try engine!.start(completionHandler:nil)
+                                    try player!.start(atTime: 0)
+                                    engine?.stop(completionHandler: nil)
                                 } catch let error{
                                     print("Failed to play pattern: \(error.localizedDescription).")
                                 }
