@@ -37,7 +37,7 @@ class VibratingApp extends StatelessWidget {
 
                       Scaffold.of(context).showSnackBar(snackBar);
                       Vibration.vibrate(
-                          pattern: [500, 1000, 1000, 2000, 500, 3000, 500, 500]);
+                          pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500]);
                     },),
                     RaisedButton(
                     child: Text('Vibrate with pattern and amplitude'),
@@ -50,7 +50,7 @@ class VibratingApp extends StatelessWidget {
                       Scaffold.of(context).showSnackBar(snackBar);
                       Vibration.vibrate(
                           pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
-                          intensities: [100, 200, 0, 128, 255, 0, 128, 255]);
+                          intensities: [128, 255, 64, 255]);
                     },
 
                   )
