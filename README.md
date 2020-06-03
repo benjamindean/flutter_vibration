@@ -91,4 +91,4 @@ For the rest of the usage instructions, see [Vibrator](https://developer.android
 
 ## iOS
 
-Supportes vibration with duration and pattern on CoreHaptics capables devices, on older device pattern is emulated but vibration are always 500ms long.
+Supports vibration with duration and pattern on CoreHaptics devices. On older devices, the pattern is emulated with 500ms long vibrations.
