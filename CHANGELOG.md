@@ -1,3 +1,7 @@
+## 1.2.5
+
+- Add support for CoreHaptics on iOS devices #30 (by [Leicas](https://github.com/Leicas))
+
 ## 1.2.4
 
 - Move `flutter_test` to dev_dependencies. Fixes issue #24.

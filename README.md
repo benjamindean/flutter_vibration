@@ -10,7 +10,7 @@ A plugin for handling Vibration API on iOS and Android devices. [API docs.](http
 
     ``` yml
     dependencies:
-      vibration: ^1.2.4
+      vibration: ^1.2.5
     ```
 
 2. Import package:
@@ -91,4 +91,4 @@ For the rest of the usage instructions, see [Vibrator](https://developer.android
 
 ## iOS
 
-Only supports singular vibrations with 500ms duration.
+Supports vibration with duration and pattern on CoreHaptics devices. On older devices, the pattern is emulated with 500ms long vibrations.
