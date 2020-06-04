@@ -1,3 +1,7 @@
+## 1.3.1
+
+- Fix #32 (by [Hugo Heneault](https://github.com/HugoHeneault))
+
 ## 1.3.0
 
 - Add support for CoreHaptics on iOS devices #30 (by [Leicas](https://github.com/Leicas))
