@@ -109,4 +109,4 @@ For the rest of the usage instructions, see [Vibrator](https://developer.android
 ## iOS
 
 Supports vibration with duration and pattern on CoreHaptics devices. On older devices, the pattern is emulated with 500ms long vibrations.
-You can check whether the device has CoreHaptics support using [`hasCustomVibrationsSupport`](#hasCustomVibrationsSupport).
+You can check whether the current device has CoreHaptics support using [`hasCustomVibrationsSupport`](#hasCustomVibrationsSupport).
