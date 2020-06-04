@@ -1,3 +1,8 @@
+## 1.4.0
+
+- Added a `hasCustomVibrationsSupport` method (#34 by [Skyost](https://github.com/Skyost))
+- Use Swift 5.0
+
 ## 1.3.1
 
 - Fix #32 (by [Hugo Heneault](https://github.com/HugoHeneault))

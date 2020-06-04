@@ -33,8 +33,7 @@ class Vibration {
   /// ```dart
   /// if (await Vibration.hasCustomVibrationsSupport()) {
   ///   Vibration.vibrate(duration: 1000);
-  /// }
-  /// else {
+  /// } else {
   ///   Vibration.vibrate();
   ///   await Future.delayed(Duration(milliseconds: 500));
   ///   Vibration.vibrate();
