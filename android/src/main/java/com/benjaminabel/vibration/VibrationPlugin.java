@@ -102,6 +102,9 @@ public class VibrationPlugin implements MethodCallHandler {
             }
 
             break;
+        case "hasCustomVibrationsSupport":
+            result.success(true);
+            break;
         case "vibrate":
             int duration = call.argument("duration");
             List<Integer> pattern = call.argument("pattern");

@@ -66,6 +66,8 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
             result(isDevice)
         case "hasAmplitudeControl":
             result(isDevice)
+        case "hasCustomVibrationsSupport":
+            result(CHHapticEngine.capabilitiesForHardware().supportsHaptics)
         case "vibrate":
             guard let args = call.arguments else {
                 result(isDevice)
