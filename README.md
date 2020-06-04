@@ -46,13 +46,12 @@ if (await Vibration.hasAmplitudeControl()) {
 
 Check if the device is able to vibrate with a custom duration, pattern or intensity.
 May return `true` even if the device has no vibrator (if you want to check whether the device has a vibrator,
-see [`hasVibrator`](#hasvibrator)).
+see [`hasVibrator`](#hasVibrator)).
 
 ```dart
 if (await Vibration.hasCustomVibrationsSupport()) {
     Vibration.vibrate(duration: 1000);
-}
-else {
+} else {
     Vibration.vibrate();
     await Future.delayed(Duration(milliseconds: 500));
     Vibration.vibrate();

@@ -60,6 +60,10 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
         }
     }
 
+    private func supportsHaptics() -> Bool {
+        return CHHapticEngine.capabilitiesForHardware().supportsHaptics
+    }
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "hasVibrator":
@@ -67,7 +71,7 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
         case "hasAmplitudeControl":
             result(isDevice)
         case "hasCustomVibrationsSupport":
-            result(CHHapticEngine.capabilitiesForHardware().supportsHaptics)
+            result(supportsHaptics())
         case "vibrate":
             guard let args = call.arguments else {
                 result(isDevice)
@@ -94,9 +98,7 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
 
             assert(pattern.count % 2 == 0, "Pattern must have even number of elements!")
 
-            let supportHaptics = CHHapticEngine.capabilitiesForHardware().supportsHaptics
-
-            if !supportHaptics {
+            if !supportsHaptics() {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                 result(isDevice)
                 return

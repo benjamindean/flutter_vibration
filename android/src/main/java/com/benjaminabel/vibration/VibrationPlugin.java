@@ -87,50 +87,51 @@ public class VibrationPlugin implements MethodCallHandler {
     @Override
     public void onMethodCall(MethodCall call, Result result) {
         switch (call.method) {
-        case "hasVibrator":
-            result.success(vibrator.hasVibrator());
+            case "hasVibrator":
+                result.success(vibrator.hasVibrator());
 
-            break;
-        case "hasAmplitudeControl":
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                result.success(vibrator.hasAmplitudeControl());
-            } else {
-                // For earlier API levels, return false rather than raising a
-                // MissingPluginException in order to allow applications to handle
-                // non-existence gracefully.
-                result.success(false);
-            }
+                break;
+            case "hasAmplitudeControl":
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    result.success(vibrator.hasAmplitudeControl());
+                } else {
+                    // For earlier API levels, return false rather than raising a
+                    // MissingPluginException in order to allow applications to handle
+                    // non-existence gracefully.
+                    result.success(false);
+                }
 
-            break;
-        case "hasCustomVibrationsSupport":
-            result.success(true);
-            break;
-        case "vibrate":
-            int duration = call.argument("duration");
-            List<Integer> pattern = call.argument("pattern");
-            int repeat = call.argument("repeat");
-            List<Integer> intensities = call.argument("intensities");
-            int amplitude = call.argument("amplitude");
+                break;
+            case "hasCustomVibrationsSupport":
+                result.success(true);
 
-            if (pattern.size() > 0 && intensities.size() > 0) {
-                vibrate(pattern, repeat, intensities);
-            } else if (pattern.size() > 0) {
-                vibrate(pattern, repeat);
-            } else {
-                vibrate(duration, amplitude);
-            }
+                break;
+            case "vibrate":
+                int duration = call.argument("duration");
+                List<Integer> pattern = call.argument("pattern");
+                int repeat = call.argument("repeat");
+                List<Integer> intensities = call.argument("intensities");
+                int amplitude = call.argument("amplitude");
 
-            result.success(null);
+                if (pattern.size() > 0 && intensities.size() > 0) {
+                    vibrate(pattern, repeat, intensities);
+                } else if (pattern.size() > 0) {
+                    vibrate(pattern, repeat);
+                } else {
+                    vibrate(duration, amplitude);
+                }
 
-            break;
-        case "cancel":
-            vibrator.cancel();
+                result.success(null);
 
-            result.success(null);
+                break;
+            case "cancel":
+                vibrator.cancel();
 
-            break;
-        default:
-            result.notImplemented();
+                result.success(null);
+
+                break;
+            default:
+                result.notImplemented();
         }
     }
 }
