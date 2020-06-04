@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'vibration'
-  s.version          = '1.3.1'
+  s.version          = '1.4.0'
   s.summary          = 'A plugin for handling Vibration API on iOS and Android devices'
   s.description      = <<-DESC
 Handle vibration on iOS and Android
@@ -15,8 +15,8 @@ Handle vibration on iOS and Android
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
+  s.platform = :ios, '8.0'
 
-  s.swift_version = '4.0'
-  s.ios.deployment_target = '8.0'
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+  s.swift_version = '5.0'
 end
-
