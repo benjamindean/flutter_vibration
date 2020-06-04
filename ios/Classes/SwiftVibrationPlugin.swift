@@ -15,9 +15,6 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
 
         SwiftVibrationPlugin.createEngine()
 
-        let hapticCapability = CHHapticEngine.capabilitiesForHardware()
-        let supportsHaptics = hapticCapability.supportsHaptics
-
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
 
