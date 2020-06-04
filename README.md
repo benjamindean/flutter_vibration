@@ -42,6 +42,23 @@ if (await Vibration.hasAmplitudeControl()) {
 }
 ```
 
+### hasCustomVibrationsSupport
+
+Check if the device is able to vibrate with a custom duration, pattern or intensity.
+May return `true` even if the device has no vibrator (if you want to check whether the device has a vibrator,
+see [`hasVibrator`](#hasvibrator)).
+
+```dart
+if (await Vibration.hasCustomVibrationsSupport()) {
+    Vibration.vibrate(duration: 1000);
+}
+else {
+    Vibration.vibrate();
+    await Future.delayed(Duration(milliseconds: 500));
+    Vibration.vibrate();
+}
+```
+
 ### vibrate
 
 #### With specific duration (for example, 1 second):
@@ -92,3 +109,4 @@ For the rest of the usage instructions, see [Vibrator](https://developer.android
 ## iOS
 
 Supports vibration with duration and pattern on CoreHaptics devices. On older devices, the pattern is emulated with 500ms long vibrations.
+You can check whether the device has CoreHaptics support using [`hasCustomVibrationsSupport`](#hasCustomVibrationsSupport).
