@@ -1,3 +1,16 @@
+## 1.4.0
+
+- Added a `hasCustomVibrationsSupport` method (#34 by [Skyost](https://github.com/Skyost))
+- Use Swift 5.0
+
+## 1.3.1
+
+- Fix #32 (by [Hugo Heneault](https://github.com/HugoHeneault))
+
+## 1.3.0
+
+- Add support for CoreHaptics on iOS devices #30 (by [Leicas](https://github.com/Leicas))
+
 ## 1.2.4
 
 - Move `flutter_test` to dev_dependencies. Fixes issue #24.

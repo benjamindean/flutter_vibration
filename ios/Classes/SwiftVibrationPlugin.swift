@@ -1,43 +1,41 @@
-import Flutter
-import UIKit
 import AudioToolbox
 import CoreHaptics
+import Flutter
+import UIKit
 
 @available(iOS 13.0, *)
 public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
     private let isDevice = TARGET_OS_SIMULATOR == 0
 
     public static var engine: CHHapticEngine!
-    
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "vibration", binaryMessenger: registrar.messenger())
         let instance = SwiftVibrationPlugin()
-        
+
         SwiftVibrationPlugin.createEngine()
-        let hapticCapability = CHHapticEngine.capabilitiesForHardware()
-        let supportsHaptics = hapticCapability.supportsHaptics
-        print("Haptics supported: \(supportsHaptics)")
-        
+
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
-    
+
     /// - Tag: CreateEngine
     public static func createEngine() {
         // Create and configure a haptic engine.
         do {
             SwiftVibrationPlugin.engine = try CHHapticEngine()
-        } catch let error {
-            print("Engine Creation Error: \(error)")
+        } catch {
+            print("Engine creation error: \(error)")
             return
         }
-        
+
         if SwiftVibrationPlugin.engine == nil {
             print("Failed to create engine!")
         }
-        
+
         // The stopped handler alerts you of engine stoppage due to external causes.
         SwiftVibrationPlugin.engine.stoppedHandler = { reason in
             print("The engine stopped for reason: \(reason.rawValue)")
+
             switch reason {
             case .audioSessionInterrupt: print("Audio session interrupt")
             case .applicationSuspended: print("Application suspended")
@@ -48,11 +46,12 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
                 print("Unknown error")
             }
         }
-        
+
         // The reset handler provides an opportunity for your app to restart the engine in case of failure.
         SwiftVibrationPlugin.engine.resetHandler = {
             // Try restarting the engine.
             print("The engine reset --> Restarting now!")
+
             do {
                 try SwiftVibrationPlugin.engine.start()
             } catch {
@@ -60,106 +59,110 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
             }
         }
     }
-    
+
+    private func supportsHaptics() -> Bool {
+        return CHHapticEngine.capabilitiesForHardware().supportsHaptics
+    }
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        switch (call.method) {
+        switch call.method {
         case "hasVibrator":
             result(isDevice)
         case "hasAmplitudeControl":
             result(isDevice)
+        case "hasCustomVibrationsSupport":
+            result(supportsHaptics())
         case "vibrate":
             guard let args = call.arguments else {
-                print("ARGS FAILED")
                 result(isDevice)
                 return
             }
+
             guard let myArgs = args as? [String: Any] else {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                print("MY ARGS FAILED")
                 result(isDevice)
                 return
             }
-            
-            guard let pattern = myArgs["pattern"] as? Array<Int> else {
+
+            guard let pattern = myArgs["pattern"] as? [Int] else {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                print("PATTERN FAILED")
                 result(isDevice)
                 return
             }
-            
+
             if pattern.count == 0 {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                print("PATTERN == 0")
                 result(isDevice)
                 return
             }
 
             assert(pattern.count % 2 == 0, "Pattern must have even number of elements!")
-            
-            let supportHaptics = CHHapticEngine.capabilitiesForHardware().supportsHaptics
-            if !supportHaptics {
+
+            if !supportsHaptics() {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                print("Hardware is missing capabilities for running the haptic engine")
                 result(isDevice)
                 return
             }
-            
+
             // Get event parameters, if any
-            var params : [CHHapticEventParameter] = []
-            if let amplitudes = myArgs["intensities"] as? Array<Int> {
+            var params: [CHHapticEventParameter] = []
+
+            if let amplitudes = myArgs["intensities"] as? [Int] {
                 if amplitudes.count > 0 {
                     // There should be half as many amplitudes as pattern
                     // i.e. disregard all the wait times
                     assert(amplitudes.count == pattern.count / 2)
                 }
-                
+
                 for a in amplitudes {
-                    let p = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(a)/255.0))
+                    let p = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(a) / 255.0))
                     params.append(p)
                 }
             }
-            
+
             // Create haptic events
-            var hapticEvents : [CHHapticEvent] = []
+            var hapticEvents: [CHHapticEvent] = []
             var i: Int = 0
             var rel: Double = 0.0
+
             while i < pattern.count {
-                
                 // Get intensity parameter, if any
                 let j = i / 2
                 let p = j < params.count ? [params[j]] : []
-                
+
                 // Get wait time and duration
                 let waitTime = Double(pattern[i]) / 1000.0
                 let duration = Double(pattern[i + 1]) / 1000.0
+
                 rel += waitTime
                 i += 2
-                
+
                 // Create haptic event
                 let e = CHHapticEvent(
-                   eventType: .hapticContinuous,
-                   parameters: p,
-                   relativeTime: rel,
-                   duration: duration
-               )
+                    eventType: .hapticContinuous,
+                    parameters: p,
+                    relativeTime: rel,
+                    duration: duration
+                )
+
                 hapticEvents.append(e)
-                
+
                 // Add duration to relative time
                 rel += duration
             }
-            
+
             // Try to play engine
             do {
                 if let engine = SwiftVibrationPlugin.engine {
-                    let patterntoplay = try CHHapticPattern(events: hapticEvents, parameters: [])
-                    let player = try engine.makePlayer(with: patterntoplay)
+                    let patternToPlay = try CHHapticPattern(events: hapticEvents, parameters: [])
+                    let player = try engine.makePlayer(with: patternToPlay)
                     try engine.start()
                     try player.start(atTime: 0)
                 }
-            } catch let error{
+            } catch {
                 print("Failed to play pattern: \(error.localizedDescription).")
             }
-            
+
             result(isDevice)
         case "cancel":
             result(nil)
@@ -168,4 +171,3 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
         }
     }
 }
-

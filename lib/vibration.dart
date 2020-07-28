@@ -26,6 +26,22 @@ class Vibration {
   static Future<bool> hasAmplitudeControl() =>
       _channel.invokeMethod("hasAmplitudeControl");
 
+  /// Check if the device is able to vibrate with a custom
+  /// [duration], [pattern] or [intensities].
+  /// May return `true` even if the device has no vibrator.
+  ///
+  /// ```dart
+  /// if (await Vibration.hasCustomVibrationsSupport()) {
+  ///   Vibration.vibrate(duration: 1000);
+  /// } else {
+  ///   Vibration.vibrate();
+  ///   await Future.delayed(Duration(milliseconds: 500));
+  ///   Vibration.vibrate();
+  /// }
+  /// ```
+  static Future<bool> hasCustomVibrationsSupport() =>
+      _channel.invokeMethod("hasCustomVibrationsSupport");
+
   /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].
   ///
   /// The default vibration duration is 500ms.

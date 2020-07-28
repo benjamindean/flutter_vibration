@@ -1,10 +1,11 @@
 name: vibration
 description: A plugin for handling Vibration API on iOS and Android devices
-version: 1.2.4
+version: 1.4.0
 homepage: https://github.com/benjamindean/flutter_vibration
 
 environment:
   sdk: ">=2.0.0 <3.0.0"
+  flutter: ">=1.10.0 <2.0.0"
 
 dependencies:
   flutter:
@@ -24,8 +25,12 @@ flutter:
   # be modified. They are used by the tooling to maintain consistency when
   # adding or updating assets for this project.
   plugin:
-    androidPackage: com.benjaminabel.vibration
-    pluginClass: VibrationPlugin
+    platforms:
+      android:
+        package: com.benjaminabel.vibration
+        pluginClass: VibrationPlugin
+      ios:
+        pluginClass: VibrationPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
