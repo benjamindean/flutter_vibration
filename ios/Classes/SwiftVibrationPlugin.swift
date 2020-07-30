@@ -106,7 +106,10 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
 
             // Get event parameters, if any
             var params: [CHHapticEventParameter] = []
-            guard let amplitudes = myArgs["intensities"] as? [Int] 
+            guard let amplitudes = myArgs["intensities"] as? [Int] else {
+                var i: Int = 0
+                var amplitude: [Int] = []
+            }
 
             // Create haptic events
             var hapticEvents: [CHHapticEvent] = []
@@ -117,21 +120,10 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
                 // Get intensity parameter, if any
                 if (i < amplitudes.count) {
                 if(amplitudes[i] != 0) {
-                    let p = [CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(a) / 255.0))]
-                }
-                else {
-                    let p = []
-                }
-                }
-
-                // Get wait time and duration
-                let waitTime = Double(pattern[i]) / 1000.0
-                let duration = Double(pattern[i + 1]) / 1000.0
-
-                rel += waitTime
-                i += 1
-
-                // Create haptic event
+                    let p = [CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(amplitudes[i]) / 255.0))]
+                    // Get wait time and duration
+                let duration = Double(pattern[i]) / 1000.0
+                 // Create haptic event
                 let e = CHHapticEvent(
                     eventType: .hapticContinuous,
                     parameters: p,
@@ -143,6 +135,18 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
 
                 // Add duration to relative time
                 rel += duration
+                }
+                else {
+                    let waitTime = Double(pattern[i]) / 1000.0
+                    rel += waitTime
+                }
+
+                }
+
+                
+                i += 1
+
+               
             }
 
             // Try to play engine
