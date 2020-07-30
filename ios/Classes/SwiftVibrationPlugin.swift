@@ -106,9 +106,19 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
 
             // Get event parameters, if any
             var params: [CHHapticEventParameter] = []
-            guard let amplitudes = myArgs["intensities"] as? [Int] else {
+            if let amplitudes = myArgs["intensities"] as? [Int] {
+            }
+            else
+            {
                 var i: Int = 0
-                var amplitude: [Int] = []
+                var amplitudes: [Int] = []
+                while i < pattern.count {
+                    amplitudes.append(0)
+                    amplitudes.append(255)
+                    i += 2
+
+                }
+                
             }
 
             // Create haptic events
