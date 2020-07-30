@@ -110,8 +110,10 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
             if let amplitudes = myArgs["intensities"] as? [Int] {
 
                 for a in amplitudes {
-                    let p = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(a) / 255.0))
-                    params.append(p)
+                    if a != 0 {
+                        let p = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(a) / 255.0))
+                        params.append(p)
+                    }
                 }
             }
 
