@@ -110,10 +110,9 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
             if let amplitudes = myArgs["intensities"] as? [Int] {
 
                 for a in amplitudes {
-                    if a != 0 {
+                        print(a)
                         let p = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(a) / 255.0))
                         params.append(p)
-                    }
                 }
             }
 
@@ -124,6 +123,14 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
 
             while i < pattern.count {
                 // Get intensity parameter, if any
+                if (i < params.count) {
+                if(amplitudes[i] != 0) {
+                    let p = params[i]
+                }
+                else {
+                    p = []
+                }
+                }
                 let p = i < params.count ? [params[i]] : []
 
                 // Get wait time and duration
