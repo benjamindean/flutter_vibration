@@ -120,10 +120,9 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
                     let p = [CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(a) / 255.0))]
                 }
                 else {
-                    p = []
+                    let p = []
                 }
                 }
-                let p = i < params.count ? [params[i]] : []
 
                 // Get wait time and duration
                 let waitTime = Double(pattern[i]) / 1000.0
