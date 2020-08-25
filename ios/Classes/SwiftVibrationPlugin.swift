@@ -108,9 +108,11 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
             var params: [CHHapticEventParameter] = []
             var amplitudes: [Int] = []
             if let amplitudes = myArgs["intensities"] as? [Int] {
+                print("With amplitudes")
             }
             else
             {
+                print("Without amplitudes")
                 var i: Int = 0
                 while i < pattern.count {
                     amplitudes.append(0)
@@ -130,13 +132,13 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
                 // Get intensity parameter, if any
                 if (i < amplitudes.count) {
                 if(amplitudes[i] != 0) {
-                    let p = [CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(amplitudes[i]) / 255.0))]
+                    let p = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(amplitudes[i]) / 255.0))
                     // Get wait time and duration
                 let duration = Double(pattern[i]) / 1000.0
                  // Create haptic event
                 let e = CHHapticEvent(
                     eventType: .hapticContinuous,
-                    parameters: p,
+                    parameters: [p],
                     relativeTime: rel,
                     duration: duration
                 )
