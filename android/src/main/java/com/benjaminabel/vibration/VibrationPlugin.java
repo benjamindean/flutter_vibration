@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.media.AudioAttributes;
 
 import java.util.List;
 
@@ -31,9 +32,15 @@ public class VibrationPlugin implements MethodCallHandler {
         if (vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if (vibrator.hasAmplitudeControl()) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(duration, amplitude));
+                    vibrator.vibrate(VibrationEffect.createOneShot(duration, amplitude), new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build());
                 } else {
-                    vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE));
+                    vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE), new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build());
                 }
             } else {
                 vibrator.vibrate(duration);
@@ -51,7 +58,10 @@ public class VibrationPlugin implements MethodCallHandler {
 
         if (vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createWaveform(patternLong, repeat));
+                vibrator.vibrate(VibrationEffect.createWaveform(patternLong, repeat), new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build());
             } else {
                 vibrator.vibrate(patternLong, repeat);
             }
@@ -74,9 +84,15 @@ public class VibrationPlugin implements MethodCallHandler {
         if (vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if (vibrator.hasAmplitudeControl()) {
-                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, intensitiesArray, repeat));
+                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, intensitiesArray, repeat), new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build());
                 } else {
-                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, repeat));
+                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, repeat), new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build());
                 }
             } else {
                 vibrator.vibrate(patternLong, repeat);
