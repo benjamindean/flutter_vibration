@@ -1,3 +1,7 @@
+## 1.5.0
+
+- Fibration now works in backgroud on Android (#40 by [wanghaiyang5241](https://github.com/wanghaiyang5241))
+
 ## 1.4.0
 
 - Added a `hasCustomVibrationsSupport` method (#34 by [Skyost](https://github.com/Skyost))
