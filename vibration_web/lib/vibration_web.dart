@@ -38,6 +38,7 @@ class VibrationWebPlugin {
         break;
       case 'cancel':
         return Future.value(_cancel());
+        break;
       default:
         throw PlatformException(
           code: 'Unimplemented',
