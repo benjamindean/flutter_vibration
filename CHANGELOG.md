@@ -1,3 +1,7 @@
+## 1.6.0
+
+- Added Web support (#43 by [roulljdh](https://github.com/roulljdh))
+
 ## 1.5.0
 
 - Fibration now works in backgroud on Android (#40 by [wanghaiyang5241](https://github.com/wanghaiyang5241))
