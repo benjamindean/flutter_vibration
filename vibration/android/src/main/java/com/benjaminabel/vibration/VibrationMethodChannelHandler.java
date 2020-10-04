@@ -10,9 +10,9 @@ import io.flutter.plugin.common.MethodChannel;
 class VibrationMethodChannelHandler implements MethodChannel.MethodCallHandler {
     private final Vibration vibration;
 
-    VibrationMethodChannelHandler(Vibration vibration) {
-        assert (vibration != null);
-        this.vibration = vibration;
+    VibrationMethodChannelHandler(Vibration vibrationPlugin) {
+        assert (vibrationPlugin != null);
+        this.vibration = vibrationPlugin;
     }
 
     @Override
