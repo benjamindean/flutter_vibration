@@ -16,6 +16,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="vibration_example"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="flutterEmbedding" android:value="2"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

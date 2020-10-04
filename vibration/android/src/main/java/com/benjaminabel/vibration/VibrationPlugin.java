@@ -1,153 +1,43 @@
 package com.benjaminabel.vibration;
 
 import android.content.Context;
-import android.os.Build;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.media.AudioAttributes;
 
-import java.util.List;
-
-import io.flutter.plugin.common.MethodCall;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
-import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-public class VibrationPlugin implements MethodCallHandler {
-    private final Vibrator vibrator;
+public class VibrationPlugin implements FlutterPlugin {
     private static final String CHANNEL = "vibration";
+    private MethodChannel methodChannel;
 
-    private VibrationPlugin(Registrar registrar) {
-        this.vibrator = (Vibrator) registrar.context().getSystemService(Context.VIBRATOR_SERVICE);
-    }
-
-    public static void registerWith(Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), CHANNEL);
-        channel.setMethodCallHandler(new VibrationPlugin(registrar));
+    @Override
+    public void onDetachedFromEngine(FlutterPluginBinding binding) {
+        teardownChannels();
     }
 
     @SuppressWarnings("deprecation")
-    private void vibrate(long duration, int amplitude) {
-        if (vibrator.hasVibrator()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (vibrator.hasAmplitudeControl()) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(duration, amplitude), new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build());
-                } else {
-                    vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE), new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build());
-                }
-            } else {
-                vibrator.vibrate(duration);
-            }
-        }
-    }
+    public static void registerWith(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
+        final VibrationPlugin vibrationPlugin = new VibrationPlugin();
 
-    @SuppressWarnings("deprecation")
-    private void vibrate(List<Integer> pattern, int repeat) {
-        long[] patternLong = new long[pattern.size()];
-
-        for (int i = 0; i < patternLong.length; i++) {
-            patternLong[i] = pattern.get(i).intValue();
-        }
-
-        if (vibrator.hasVibrator()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createWaveform(patternLong, repeat), new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build());
-            } else {
-                vibrator.vibrate(patternLong, repeat);
-            }
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    private void vibrate(List<Integer> pattern, int repeat, List<Integer> intensities) {
-        long[] patternLong = new long[pattern.size()];
-        int[] intensitiesArray = new int[intensities.size()];
-
-        for (int i = 0; i < patternLong.length; i++) {
-            patternLong[i] = pattern.get(i).intValue();
-        }
-
-        for (int i = 0; i < intensitiesArray.length; i++) {
-            intensitiesArray[i] = intensities.get(i);
-        }
-
-        if (vibrator.hasVibrator()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (vibrator.hasAmplitudeControl()) {
-                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, intensitiesArray, repeat), new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build());
-                } else {
-                    vibrator.vibrate(VibrationEffect.createWaveform(patternLong, repeat), new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build());
-                }
-            } else {
-                vibrator.vibrate(patternLong, repeat);
-            }
-        }
+        vibrationPlugin.setupChannels(registrar.messenger(), registrar.context());
     }
 
     @Override
-    public void onMethodCall(MethodCall call, Result result) {
-        switch (call.method) {
-            case "hasVibrator":
-                result.success(vibrator.hasVibrator());
+    public void onAttachedToEngine(FlutterPluginBinding binding) {
+        setupChannels(binding.getBinaryMessenger(), binding.getApplicationContext());
+    }
 
-                break;
-            case "hasAmplitudeControl":
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    result.success(vibrator.hasAmplitudeControl());
-                } else {
-                    // For earlier API levels, return false rather than raising a
-                    // MissingPluginException in order to allow applications to handle
-                    // non-existence gracefully.
-                    result.success(false);
-                }
+    private void setupChannels(BinaryMessenger messenger, Context context) {
+        final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        final VibrationMethodChannelHandler methodChannelHandler = new VibrationMethodChannelHandler(new Vibration(vibrator));
 
-                break;
-            case "hasCustomVibrationsSupport":
-                result.success(true);
+        this.methodChannel = new MethodChannel(messenger, CHANNEL);
+        this.methodChannel.setMethodCallHandler(methodChannelHandler);
+    }
 
-                break;
-            case "vibrate":
-                int duration = call.argument("duration");
-                List<Integer> pattern = call.argument("pattern");
-                int repeat = call.argument("repeat");
-                List<Integer> intensities = call.argument("intensities");
-                int amplitude = call.argument("amplitude");
-
-                if (pattern.size() > 0 && intensities.size() > 0) {
-                    vibrate(pattern, repeat, intensities);
-                } else if (pattern.size() > 0) {
-                    vibrate(pattern, repeat);
-                } else {
-                    vibrate(duration, amplitude);
-                }
-
-                result.success(null);
-
-                break;
-            case "cancel":
-                vibrator.cancel();
-
-                result.success(null);
-
-                break;
-            default:
-                result.notImplemented();
-        }
+    private void teardownChannels() {
+        this.methodChannel.setMethodCallHandler(null);
+        this.methodChannel = null;
     }
 }

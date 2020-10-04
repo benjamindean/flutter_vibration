@@ -1,4 +1,4 @@
-# vibration_web
+# Vibration
 
 The web implementation of [`vibration`][1].
 
