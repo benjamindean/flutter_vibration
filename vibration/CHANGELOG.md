@@ -1,3 +1,7 @@
+## 1.7.1
+
+- Fix building on iOS.
+
 ## 1.7.0
 
 - Use Android Embedding v2.
