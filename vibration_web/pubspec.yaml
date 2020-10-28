@@ -1,0 +1,25 @@
+name: vibration_web
+description: A plugin for handling Vibration API on the Web
+version: 1.6.2
+homepage: https://github.com/benjamindean/flutter_vibration
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.20.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      web:
+        pluginClass: VibrationWebPlugin
+        fileName: vibration_web.dart
