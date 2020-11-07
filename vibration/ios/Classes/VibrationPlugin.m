@@ -3,6 +3,6 @@
 
 @implementation VibrationPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftVibrationPlugin registerWithRegistrar:registrar];
+  [VibrationPluginSwift registerWithRegistrar:registrar];
 }
 @end
