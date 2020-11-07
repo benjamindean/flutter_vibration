@@ -1,3 +1,7 @@
+## 1.7.2
+
+- Updated description to indicate web support.
+
 ## 1.7.1
 
 - Fix building on iOS.
