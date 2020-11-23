@@ -107,7 +107,7 @@ public class SwiftVibrationPlugin: NSObject, FlutterPlugin {
             // Get event parameters, if any
             var params: [CHHapticEventParameter] = []
             //var amplitudes: [Int] = []
-            let amplitudes = myArgs["intensities"] as? [Int] 
+            let amplitudes = myArgs["intensities"] as! [Int] 
             /*else
             {
                 print("Without amplitudes")
