@@ -119,7 +119,7 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
 
             // Try to play engine
             do {
-                if let engine = SwiftVibrationPlugin.engine {
+                if let engine = VibrationPluginSwift.engine {
                     let patternToPlay = try CHHapticPattern(events: hapticEvents, parameters: [])
                     let player = try engine.makePlayer(with: patternToPlay)
                     try engine.start()
