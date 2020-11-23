@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/benjamindean/flutter_vibration.svg?branch=master)](https://travis-ci.org/benjamindean/flutter_vibration)
 
-A plugin for handling Vibration API on iOS and Android devices. [API docs.](https://pub.dartlang.org/documentation/vibration/latest/vibration/Vibration-class.html)
+A plugin for handling Vibration API on iOS, Android, and web. [API docs.](https://pub.dartlang.org/documentation/vibration/latest/vibration/Vibration-class.html)
 
 ## Getting Started
 
@@ -10,7 +10,7 @@ A plugin for handling Vibration API on iOS and Android devices. [API docs.](http
 
     ``` yml
     dependencies:
-      vibration: ^1.7.1
+      vibration: ^1.7.2
     ```
 
 2. Import package:
