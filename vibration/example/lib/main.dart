@@ -36,7 +36,7 @@ class VibratingApp extends StatelessWidget {
                           'Pattern: wait 0.5s, vibrate 1s, wait 0.5s, vibrate 2s, wait 0.5s, vibrate 3s, wait 0.5s, vibrate 0.5s',
                         ),
                       );
-                      Scaffold.of(context).showSnackBar(snackBar);
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       Vibration.vibrate(
                         pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
                       );
@@ -51,7 +51,7 @@ class VibratingApp extends StatelessWidget {
                         ),
                       );
 
-                      Scaffold.of(context).showSnackBar(snackBar);
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       Vibration.vibrate(
                         pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
                         intensities: [128, 255, 64, 255],
