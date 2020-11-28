@@ -136,7 +136,7 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
             result(supportsHaptics())
         case "vibrate":
             guard let args = call.arguments else {
-                result(true)
+                result(false)
                 return
             }
             
