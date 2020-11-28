@@ -1,3 +1,7 @@
+## 1.7.3
+
+- Use targetEnvironment check on iOS.
+
 ## 1.7.2
 
 - Updated description to indicate web support.
