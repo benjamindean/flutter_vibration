@@ -1,3 +1,7 @@
+## 1.6.3-nullsafety.0
+
+- Migrating to null safety.
+
 ## 1.6.2
 
 - Fix building on iOS.

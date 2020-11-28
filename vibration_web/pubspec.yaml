@@ -1,10 +1,10 @@
 name: vibration_web
 description: A plugin for handling Vibration API on the Web
-version: 1.6.2
+version: 1.6.3-nullsafety.0
 homepage: https://github.com/benjamindean/flutter_vibration
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
   flutter: ">=1.20.0 <2.0.0"
 
 dependencies:
