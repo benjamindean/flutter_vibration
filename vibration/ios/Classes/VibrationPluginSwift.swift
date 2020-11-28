@@ -4,7 +4,11 @@ import Flutter
 import UIKit
 
 public class VibrationPluginSwift: NSObject, FlutterPlugin {
-    private let isDevice = TARGET_OS_SIMULATOR == 1
+    #if targetEnvironment(simulator)
+        private let isDevice = false
+    #else
+        private let isDevice = true
+    #endif
     
     @available(iOS 13.0, *)
     public static var engine: CHHapticEngine?
@@ -132,25 +136,25 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
             result(supportsHaptics())
         case "vibrate":
             guard let args = call.arguments else {
-                result(isDevice)
+                result(true)
                 return
             }
             
             guard let myArgs = args as? [String: Any] else {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                result(isDevice)
+                result(true)
                 return
             }
             
             guard let pattern = myArgs["pattern"] as? [Int] else {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                result(isDevice)
+                result(true)
                 return
             }
             
             if pattern.count == 0 {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                result(isDevice)
+                result(true)
                 return
             }
             
@@ -158,7 +162,7 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
             
             if !supportsHaptics() {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                result(isDevice)
+                result(true)
                 return
             }
             
