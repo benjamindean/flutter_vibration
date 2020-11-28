@@ -1,6 +1,6 @@
 name: vibration
 description: A plugin for handling Vibration API on iOS, Android, and web.
-version: 1.7.2
+version: 1.7.3
 homepage: https://github.com/benjamindean/flutter_vibration
 
 environment:
