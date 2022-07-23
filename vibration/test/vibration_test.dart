@@ -20,7 +20,7 @@ void main() {
   test(
     'hasVibrator',
     () async {
-      bool hasVibrator = await Vibration.hasVibrator();
+      bool? hasVibrator = await Vibration.hasVibrator();
 
       expect(
         hasVibrator,

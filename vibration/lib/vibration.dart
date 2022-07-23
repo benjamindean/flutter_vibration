@@ -14,7 +14,7 @@ class Vibration {
   ///   Vibration.vibrate();
   /// }
   /// ```
-  static Future<bool> hasVibrator() => _channel.invokeMethod("hasVibrator");
+  static Future<bool?> hasVibrator() => _channel.invokeMethod("hasVibrator");
 
   /// Check if the vibrator has amplitude control.
   ///
@@ -23,7 +23,7 @@ class Vibration {
   ///   Vibration.vibrate(amplitude: 128);
   /// }
   /// ```
-  static Future<bool> hasAmplitudeControl() =>
+  static Future<bool?> hasAmplitudeControl() =>
       _channel.invokeMethod("hasAmplitudeControl");
 
   /// Check if the device is able to vibrate with a custom
@@ -39,7 +39,7 @@ class Vibration {
   ///   Vibration.vibrate();
   /// }
   /// ```
-  static Future<bool> hasCustomVibrationsSupport() =>
+  static Future<bool?> hasCustomVibrationsSupport() =>
       _channel.invokeMethod("hasCustomVibrationsSupport");
 
   /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].

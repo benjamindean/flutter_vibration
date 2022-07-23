@@ -26,19 +26,16 @@ class VibrationWebPlugin {
     switch (call.method) {
       case 'hasVibrator':
         return Future.value(_hasVibrator());
-        break;
       case 'vibrate':
         final int duration = call.arguments['duration'];
         final List<int> pattern = call.arguments['pattern'].cast<int>();
+
         return Future.value(_vibrate(duration: duration, pattern: pattern));
-        break;
       case 'hasAmplitudeControl':
       case 'hasCustomVibrationsSupport':
         return Future.value(false);
-        break;
       case 'cancel':
         return Future.value(_cancel());
-        break;
       default:
         throw PlatformException(
           code: 'Unimplemented',
