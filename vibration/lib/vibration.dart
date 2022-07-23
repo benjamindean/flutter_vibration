@@ -55,12 +55,13 @@ class Vibration {
   ///   Vibration.vibrate(duration: 1000, amplitude: 255);
   /// }
   /// ```
-  static Future<void> vibrate(
-          {int duration = 500,
-          List<int> pattern = const [],
-          int repeat = -1,
-          List<int> intensities = const [],
-          int amplitude = -1}) =>
+  static Future<void> vibrate({
+    int duration = 500,
+    List<int> pattern = const [],
+    int repeat = -1,
+    List<int> intensities = const [],
+    int amplitude = -1,
+  }) =>
       _channel.invokeMethod(
         "vibrate",
         {

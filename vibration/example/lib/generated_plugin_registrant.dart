@@ -2,15 +2,16 @@
 // Generated file. Do not edit.
 //
 
-// ignore: unused_import
-import 'dart:ui';
+// ignore_for_file: directives_ordering
+// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: depend_on_referenced_packages
 
 import 'package:vibration_web/vibration_web.dart';
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 // ignore: public_member_api_docs
-void registerPlugins(PluginRegistry registry) {
-  VibrationWebPlugin.registerWith(registry.registrarFor(VibrationWebPlugin));
-  registry.registerMessageHandler();
+void registerPlugins(Registrar registrar) {
+  VibrationWebPlugin.registerWith(registrar);
+  registrar.registerMessageHandler();
 }

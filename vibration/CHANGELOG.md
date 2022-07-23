@@ -1,4 +1,4 @@
-## 1.7.4-nullsafety.0
+## 1.7.4
 
 - Migrating to null safety.
 

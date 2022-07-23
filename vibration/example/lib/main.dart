@@ -16,19 +16,19 @@ class VibratingApp extends StatelessWidget {
             return Center(
               child: Column(
                 children: <Widget>[
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text('Vibrate for default 500ms'),
                     onPressed: () {
                       Vibration.vibrate();
                     },
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text('Vibrate for 1000ms'),
                     onPressed: () {
                       Vibration.vibrate(duration: 1000);
                     },
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text('Vibrate with pattern'),
                     onPressed: () {
                       final snackBar = SnackBar(
@@ -42,7 +42,7 @@ class VibratingApp extends StatelessWidget {
                       );
                     },
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text('Vibrate with pattern and amplitude'),
                     onPressed: () {
                       final snackBar = SnackBar(

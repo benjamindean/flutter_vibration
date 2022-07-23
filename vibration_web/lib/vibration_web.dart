@@ -12,7 +12,6 @@ class VibrationWebPlugin {
     final MethodChannel channel = MethodChannel(
       'vibration',
       const StandardMethodCodec(),
-      registrar.messenger,
     );
 
     final pluginInstance = VibrationWebPlugin();

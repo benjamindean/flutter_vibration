@@ -10,7 +10,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (Widget widget) => widget is RaisedButton,
+          (Widget widget) => widget is ElevatedButton,
         ),
         findsNWidgets(3),
       );
