@@ -1,4 +1,4 @@
-## 1.7.4
+## 1.7.5
 
 - Bump `vibration_web` to 1.6.4.
 
