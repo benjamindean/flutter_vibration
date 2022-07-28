@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'vibration_web'
-  s.version          = '1.6.3'
+  s.version          = '1.6.4'
   s.summary          = 'Web implmentation of Vibration plugin'
   s.description      = <<-DESC
 Web implmentation of Vibration plugin

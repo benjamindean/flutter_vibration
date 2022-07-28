@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  vibration_web: ^1.6.3
+  vibration_web: ^1.6.4
 
 dev_dependencies:
   flutter_test:
