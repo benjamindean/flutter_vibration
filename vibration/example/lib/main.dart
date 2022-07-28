@@ -54,7 +54,7 @@ class VibratingApp extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       Vibration.vibrate(
                         pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
-                        intensities: [128, 255, 64, 255],
+                        intensities: [0, 128, 0, 255, 0, 64, 0, 255],
                       );
                     },
                   )
