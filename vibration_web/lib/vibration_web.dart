@@ -12,9 +12,10 @@ class VibrationWebPlugin {
     final MethodChannel channel = MethodChannel(
       'vibration',
       const StandardMethodCodec(),
+      registrar,
     );
+    final VibrationWebPlugin pluginInstance = VibrationWebPlugin();
 
-    final pluginInstance = VibrationWebPlugin();
     channel.setMethodCallHandler(pluginInstance.handleMethodCall);
   }
 
@@ -38,8 +39,7 @@ class VibrationWebPlugin {
       default:
         throw PlatformException(
           code: 'Unimplemented',
-          details:
-              'vibration_web for web doesn\'t implement \'${call.method}\'',
+          details: 'vibration_web doesn\'t implement \'${call.method}\'',
         );
     }
   }
