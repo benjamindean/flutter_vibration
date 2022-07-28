@@ -1,5 +1,9 @@
 ## 1.7.4
 
+- Bump `vibration_web` to 1.6.4.
+
+## 1.7.4
+
 - Migrating to null safety.
 
 ## 1.7.3

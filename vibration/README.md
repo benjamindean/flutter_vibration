@@ -10,7 +10,7 @@ A plugin for handling Vibration API on iOS, Android, and web. [API docs.](https:
 
     ``` yml
     dependencies:
-      vibration: ^1.7.4
+      vibration: ^1.7.5
     ```
 
 2. Import package:
