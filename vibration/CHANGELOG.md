@@ -1,3 +1,6 @@
+## 1.7.6
+- Update package's dart SDK max version (under 3.0.0)
+
 ## 1.7.5
 
 - Bump `vibration_web` to 1.6.4.
