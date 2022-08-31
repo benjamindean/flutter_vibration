@@ -1,10 +1,10 @@
 name: vibration_example
 description: Demonstrates how to use the vibration plugin.
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0
 
 environment:
-  sdk: ">=2.12.1 <=2.17.6"
+  sdk: ">=2.12.1 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,7 +26,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
