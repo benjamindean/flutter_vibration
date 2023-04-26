@@ -1,3 +1,6 @@
+## 1.7.7
+- Adds a namespace attribute to the Android build.gradle, for compatibility with Android Gradle Plugin 8.0.
+
 ## 1.7.6
 - Update package's dart SDK max version (under 3.0.0)
 
