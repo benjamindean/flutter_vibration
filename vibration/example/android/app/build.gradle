@@ -25,6 +25,7 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    namespace 'com.benjaminabel.vibration_example'
     compileSdkVersion 28
 
     lintOptions {
