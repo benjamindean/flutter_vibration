@@ -1,3 +1,6 @@
+## 1.8.0
+- Use `device_info_plus` for `hasAmplitudeControl` and `hasVibrator` methods.
+
 ## 1.7.7
 - Adds a namespace attribute to the Android build.gradle, for compatibility with Android Gradle Plugin 8.0.
 

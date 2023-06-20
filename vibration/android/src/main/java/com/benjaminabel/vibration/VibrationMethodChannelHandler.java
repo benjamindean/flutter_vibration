@@ -18,10 +18,6 @@ class VibrationMethodChannelHandler implements MethodChannel.MethodCallHandler {
     @Override
     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
         switch (call.method) {
-            case "hasVibrator":
-                result.success(vibration.getVibrator().hasVibrator());
-
-                break;
             case "hasAmplitudeControl":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     result.success(vibration.getVibrator().hasAmplitudeControl());

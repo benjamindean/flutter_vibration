@@ -116,10 +116,6 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "hasVibrator":
-            result(isDevice)
-        case "hasAmplitudeControl":
-            result(isDevice)
         case "hasCustomVibrationsSupport":
             result(supportsHaptics())
         case "vibrate":

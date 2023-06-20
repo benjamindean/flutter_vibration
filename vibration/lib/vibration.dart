@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 /// Platform-independent vibration methods.
 class Vibration {
+  static final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
   /// Method channel to communicate with native code.
   static const MethodChannel _channel = const MethodChannel('vibration');
 
@@ -14,7 +18,31 @@ class Vibration {
   ///   Vibration.vibrate();
   /// }
   /// ```
-  static Future<bool?> hasVibrator() => _channel.invokeMethod("hasVibrator");
+  static Future<bool?> hasVibrator() async {
+    try {
+      if (Platform.isAndroid) {
+        final deviceData = await deviceInfo.androidInfo;
+
+        if (!deviceData.isPhysicalDevice) {
+          return false;
+        }
+
+        return true;
+      } else if (Platform.isIOS) {
+        final deviceData = await deviceInfo.iosInfo;
+
+        if (!deviceData.isPhysicalDevice) {
+          return false;
+        }
+
+        return true;
+      }
+    } on PlatformException {
+      return false;
+    }
+
+    return false;
+  }
 
   /// Check if the vibrator has amplitude control.
   ///
@@ -23,8 +51,31 @@ class Vibration {
   ///   Vibration.vibrate(amplitude: 128);
   /// }
   /// ```
-  static Future<bool?> hasAmplitudeControl() =>
-      _channel.invokeMethod("hasAmplitudeControl");
+  static Future<bool?> hasAmplitudeControl() async {
+    try {
+      if (Platform.isAndroid) {
+        final deviceData = await deviceInfo.androidInfo;
+
+        if (!deviceData.isPhysicalDevice) {
+          return false;
+        }
+
+        return _channel.invokeMethod("hasAmplitudeControl");
+      } else if (Platform.isIOS) {
+        final deviceData = await deviceInfo.iosInfo;
+
+        if (!deviceData.isPhysicalDevice) {
+          return false;
+        }
+
+        return true;
+      }
+    } on PlatformException {
+      return false;
+    }
+
+    return false;
+  }
 
   /// Check if the device is able to vibrate with a custom
   /// [duration], [pattern] or [intensities].
