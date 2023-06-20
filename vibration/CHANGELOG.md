@@ -1,4 +1,7 @@
 ## 1.8.0
+- Raise minimum and target SDK versions for Android to upgrade Gradle to 7.5.
+
+## 1.8.0
 - Use `device_info_plus` for `hasAmplitudeControl` and `hasVibrator` methods.
 
 ## 1.7.7
