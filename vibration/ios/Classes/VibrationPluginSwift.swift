@@ -4,11 +4,11 @@ import Flutter
 import UIKit
 
 public class VibrationPluginSwift: NSObject, FlutterPlugin {
-    #if targetEnvironment(simulator)
-        private let isDevice = false
-    #else
-        private let isDevice = true
-    #endif
+#if targetEnvironment(simulator)
+    private let isDevice = false
+#else
+    private let isDevice = true
+#endif
     
     @available(iOS 13.0, *)
     public static var engine: CHHapticEngine?
@@ -69,13 +69,13 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
         // Get event parameters, if any
         var params: [CHHapticEventParameter] = []
         //var amplitudes: [Int] = []
-        let amplitudes = myArgs["intensities"] as! [Int] 
-
+        let amplitudes = myArgs["intensities"] as! [Int]
+        
         // Create haptic events
         var hapticEvents: [CHHapticEvent] = []
         var i: Int = 0
         var rel: Double = 0.0
-
+        
         while i < pattern.count {
             // Get intensity parameter, if any
             if (i < amplitudes.count) {
@@ -99,7 +99,7 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
                     rel += waitTime
                 }
             }
-            i += 1    
+            i += 1
         }
         // Try to play engine
         do {
@@ -168,10 +168,10 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
         case "cancel":
             if #available(iOS 13.0, *) {
                 cancelVibration()
-                    } else {
-                        result(false)
-                    }
-                    result(true)
+            } else {
+                result(false)
+            }
+            result(true)
             return
         default:
             result(FlutterMethodNotImplemented)
