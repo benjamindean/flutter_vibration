@@ -124,7 +124,8 @@ class Vibration {
         },
       );
 
-  /// Cancel ongoing vibration.
+  /// This method is used to cancel an ongoing vibration.
+  /// iOS: only works for custom haptic vibrations using `CHHapticEngine.
   ///
   /// ```dart
   /// Vibration.vibrate(duration: 10000);
