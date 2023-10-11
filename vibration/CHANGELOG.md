@@ -1,13 +1,21 @@
-## 1.8.0
+## 1.8.3
+
+- Raise dart SDK max version and allow use of device_info_plus version 10.x.x.
+
+## 1.8.2
+
 - Raise minimum and target SDK versions for Android to upgrade Gradle to 7.5.
 
 ## 1.8.0
+
 - Use `device_info_plus` for `hasAmplitudeControl` and `hasVibrator` methods.
 
 ## 1.7.7
+
 - Adds a namespace attribute to the Android build.gradle, for compatibility with Android Gradle Plugin 8.0.
 
 ## 1.7.6
+
 - Update package's dart SDK max version (under 3.0.0)
 
 ## 1.7.5
