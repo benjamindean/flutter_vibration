@@ -94,8 +94,13 @@ class Vibration {
   ///   Vibration.vibrate();
   /// }
   /// ```
-  static Future<bool?> hasCustomVibrationsSupport() =>
-      _channel.invokeMethod("hasCustomVibrationsSupport");
+  static Future<bool?> hasCustomVibrationsSupport() async {
+    try {
+      return await _channel.invokeMethod("hasCustomVibrationsSupport");
+    } on MissingPluginException {
+      return Future.value(false);
+    }
+  }
 
   /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].
   ///
