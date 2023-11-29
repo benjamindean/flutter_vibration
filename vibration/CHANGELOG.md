@@ -1,6 +1,6 @@
 ## 1.8.3
 
-- Raise dart SDK max version and allow use of device_info_plus version 10.x.x.
+- Added Web support (#95 by [san-smith](https://github.com/san-smith))
 
 ## 1.8.2
 

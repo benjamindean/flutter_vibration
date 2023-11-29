@@ -1,4 +1,9 @@
+## 1.6.6
+
+- Added Web support (#95 by [san-smith](https://github.com/san-smith))
+
 ## 1.6.5
+
 - Update package's dart SDK max version (under 3.0.0)
 
 ## 1.6.4
