@@ -1,4 +1,4 @@
-## 1.8.3
+## 1.8.4
 
 - Added Web support (#95 by [san-smith](https://github.com/san-smith))
 
