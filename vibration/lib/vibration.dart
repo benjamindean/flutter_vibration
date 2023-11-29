@@ -39,6 +39,8 @@ class Vibration {
       }
     } on PlatformException {
       return false;
+    } on UnsupportedError {
+      return false;
     }
 
     return false;
@@ -71,6 +73,8 @@ class Vibration {
         return true;
       }
     } on PlatformException {
+      return false;
+    } on UnsupportedError {
       return false;
     }
 
