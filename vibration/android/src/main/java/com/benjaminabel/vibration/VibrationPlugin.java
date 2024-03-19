@@ -1,7 +1,9 @@
 package com.benjaminabel.vibration;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Vibrator;
+import android.os.VibratorManager;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
@@ -29,7 +31,13 @@ public class VibrationPlugin implements FlutterPlugin {
     }
 
     private void setupChannels(BinaryMessenger messenger, Context context) {
-        final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator vibrator;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            VibratorManager vibratorManager = (VibratorManager) context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+            vibrator = vibratorManager.getDefaultVibrator();
+        } else {
+            vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        }
         final VibrationMethodChannelHandler methodChannelHandler = new VibrationMethodChannelHandler(new Vibration(vibrator));
 
         this.methodChannel = new MethodChannel(messenger, CHANNEL);
