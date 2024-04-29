@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "vibration",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

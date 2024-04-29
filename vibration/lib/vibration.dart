@@ -1,16 +1,15 @@
+library vibration;
+
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:device_info_plus/device_info_plus.dart';
+import 'package:vibration_platform_interface/vibration_platform_interface.dart';
+export 'package:vibration_platform_interface/vibration_platform_interface.dart';
 
 /// Platform-independent vibration methods.
 class Vibration {
-  static final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-
-  /// Method channel to communicate with native code.
-  static const MethodChannel _channel = const MethodChannel('vibration');
-
   /// Check if vibrator is available on device.
   ///
   /// ```dart
@@ -19,31 +18,7 @@ class Vibration {
   /// }
   /// ```
   static Future<bool?> hasVibrator() async {
-    try {
-      if (Platform.isAndroid) {
-        final deviceData = await deviceInfo.androidInfo;
-
-        if (!deviceData.isPhysicalDevice) {
-          return false;
-        }
-
-        return true;
-      } else if (Platform.isIOS) {
-        final deviceData = await deviceInfo.iosInfo;
-
-        if (!deviceData.isPhysicalDevice) {
-          return false;
-        }
-
-        return true;
-      }
-    } on PlatformException {
-      return false;
-    } on UnsupportedError {
-      return false;
-    }
-
-    return false;
+    return VibrationPlatform.instance.hasVibrator();
   }
 
   /// Check if the vibrator has amplitude control.
@@ -54,31 +29,7 @@ class Vibration {
   /// }
   /// ```
   static Future<bool?> hasAmplitudeControl() async {
-    try {
-      if (Platform.isAndroid) {
-        final deviceData = await deviceInfo.androidInfo;
-
-        if (!deviceData.isPhysicalDevice) {
-          return false;
-        }
-
-        return _channel.invokeMethod("hasAmplitudeControl");
-      } else if (Platform.isIOS) {
-        final deviceData = await deviceInfo.iosInfo;
-
-        if (!deviceData.isPhysicalDevice) {
-          return false;
-        }
-
-        return true;
-      }
-    } on PlatformException {
-      return false;
-    } on UnsupportedError {
-      return false;
-    }
-
-    return false;
+    return VibrationPlatform.instance.hasAmplitudeControl();
   }
 
   /// Check if the device is able to vibrate with a custom
@@ -95,11 +46,7 @@ class Vibration {
   /// }
   /// ```
   static Future<bool?> hasCustomVibrationsSupport() async {
-    try {
-      return await _channel.invokeMethod("hasCustomVibrationsSupport");
-    } on MissingPluginException {
-      return Future.value(false);
-    }
+    return VibrationPlatform.instance.hasCustomVibrationsSupport();
   }
 
   /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].
@@ -121,17 +68,15 @@ class Vibration {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
-  }) =>
-      _channel.invokeMethod(
-        "vibrate",
-        {
-          "duration": duration,
-          "pattern": pattern,
-          "repeat": repeat,
-          "amplitude": amplitude,
-          "intensities": intensities
-        },
-      );
+  }) {
+    return VibrationPlatform.instance.vibrate(
+      duration: duration,
+      pattern: pattern,
+      repeat: repeat,
+      intensities: intensities,
+      amplitude: amplitude,
+    );
+  }
 
   /// This method is used to cancel an ongoing vibration.
   /// iOS: only works for custom haptic vibrations using `CHHapticEngine.
@@ -140,5 +85,7 @@ class Vibration {
   /// Vibration.vibrate(duration: 10000);
   /// Vibration.cancel();
   /// ```
-  static Future<void> cancel() => _channel.invokeMethod("cancel");
+  static Future<void> cancel() {
+    return VibrationPlatform.instance.cancel();
+  }
 }
