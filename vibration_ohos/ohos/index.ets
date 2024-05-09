@@ -13,5 +13,5 @@
 * limitations under the License.
 */
 
-import VibrationPlugin from './src/main/ets/components/plugin/VibrationPlugin';
+import VibrationPlugin from './src/main/ets/components/plugin/VibrationOhosPlugin';
 export default VibrationPlugin;

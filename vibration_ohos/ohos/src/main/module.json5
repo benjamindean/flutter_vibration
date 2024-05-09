@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "vibration",
+    "name": "vibration_ohos",
     "type": "har",
     "deviceTypes": [
       "default",

@@ -78,27 +78,27 @@ class VibratingApp extends StatelessWidget {
                           ),
                         );
                       },
-                    )
+                    ),
                   // ohos only
                   // TODO: not support for now
-                  // if (PlatformUtils.isOhos)
-                  // ElevatedButton(
-                  //   child: Text('Vibrate  with custom haptic_file'),
-                  //   onPressed: () {
-                  //     rootBundle.load('assets/haptic_file.json').then((data) {
-                  //       (VibrationPlatform.instance as VibrationOhos).vibrate(
-                  //         vibrateEffect: VibrateFromFile(
-                  //           hapticFd: HapticFileDescriptor(
-                  //             data: data.buffer.asUint8List(),
-                  //           ),
-                  //         ),
-                  //         vibrateAttribute: VibrateAttribute(
-                  //           usage: 'alarm',
-                  //         ),
-                  //       );
-                  //     });
-                  //   },
-                  // )
+                  if (PlatformUtils.isOhos)
+                    ElevatedButton(
+                      child: Text('Vibrate  with custom haptic_file'),
+                      onPressed: () {
+                        rootBundle.load('assets/haptic_file.json').then((data) {
+                          (VibrationPlatform.instance as VibrationOhos).vibrate(
+                            vibrateEffect: VibrateFromFile(
+                              hapticFd: HapticFileDescriptor(
+                                data: data.buffer.asUint8List(),
+                              ),
+                            ),
+                            vibrateAttribute: VibrateAttribute(
+                              usage: 'alarm',
+                            ),
+                          );
+                        });
+                      },
+                    )
                 ],
               ),
             );

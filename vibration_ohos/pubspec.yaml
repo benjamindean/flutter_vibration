@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   vibration_platform_interface: ^0.0.1
-  device_info_plus_ohos: ^0.0.6
+  device_info_plus_ohos: ^0.0.7
 
 # dependency_overrides:
 #   vibration_platform_interface:
@@ -40,7 +40,6 @@ flutter:
   plugin:
     platforms: 
       ohos:
-        package: com.benjaminabel.vibration
         pluginClass: VibrationPlugin
         dartPluginClass: VibrationOhos
   # To add assets to your plugin package, add an assets section, like this:
