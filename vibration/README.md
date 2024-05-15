@@ -109,3 +109,43 @@ For the rest of the usage instructions, see [Vibrator](https://developer.android
 
 Supports vibration with duration and pattern on CoreHaptics devices. On older devices, the pattern is emulated with 500ms long vibrations.
 You can check whether the current device has CoreHaptics support using [`hasCustomVibrationsSupport`](#hasCustomVibrationsSupport).
+
+
+## OpenHarmony
+
+The OpenHarmony implementation of [`vibration`][1].
+
+[`vibration`][1] 在 OpenHarmony 平台的实现。
+
+
+Add the following permission settings to your project's module.json5 file.
+
+在你的项目的 `module.json5` 文件中增加以下权限设置。
+
+```json
+    "requestPermissions": [
+         {"name" :  "ohos.permission.VIBRATE"},                
+    ]
+```
+
+## Usage
+
+```yaml
+dependencies:
+  vibration: any
+  vibration_ohos: any
+```
+
+`vibrateEffect` and `vibrateAttribute` are only exist in `VibrationOhos`.
+
+
+```dart
+ (VibrationPlatform.instance as VibrationOhos).vibrate(
+   vibrateEffect: const VibratePreset(count: 100),
+   vibrateAttribute: const VibrateAttribute(
+     usage: 'alarm',
+   ),
+ );
+```
+
+ [1]: https://pub.dev/packages/vibration

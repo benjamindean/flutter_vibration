@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "vibration_ohos",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

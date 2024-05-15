@@ -1,3 +1,8 @@
+## 1.9.0
+
+- Added OpenHarmony support
+- Migrate to common platform implement (vibration_platform_interface)
+
 ## 1.8.4
 
 - Added Web support (#95 by [san-smith](https://github.com/san-smith))
