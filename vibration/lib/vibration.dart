@@ -1,10 +1,7 @@
 library vibration;
 
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:vibration_platform_interface/vibration_platform_interface.dart';
 export 'package:vibration_platform_interface/vibration_platform_interface.dart';
 
