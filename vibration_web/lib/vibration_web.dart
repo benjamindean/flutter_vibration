@@ -1,12 +1,14 @@
 import 'dart:async';
-import 'dart:js';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:web/web.dart' as web;
 
 class VibrationWebPlugin {
   /// Get navigator JS object
-  static final _navigator = context['navigator'];
+  static final _navigator = web.window.navigator;
 
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(
@@ -46,16 +48,17 @@ class VibrationWebPlugin {
 
   static bool _hasVibrator() {
     /// Check if the navigator object has the vibrate function
-    return _navigator.hasProperty('vibrate');
+    return _navigator.has('vibrate');
   }
 
   static _vibrate({int duration = 500, List<int> pattern = const []}) {
     if (_hasVibrator()) {
       /// If pattern is not empty, convert to JS array
-      final args = pattern.length > 0 ? JsArray.from(pattern) : duration;
+      final args =
+          pattern.length > 0 ? pattern.jsify() ?? duration.toJS : duration.toJS;
 
       /// Call vibrate function
-      _navigator.callMethod('vibrate', [args]);
+      _navigator.vibrate(args);
     }
   }
 
