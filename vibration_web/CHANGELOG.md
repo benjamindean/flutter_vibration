@@ -1,3 +1,7 @@
+## 1.6.8
+
+- Adds support for `web: ^1.0.0`
+
 ## 1.6.7
 
 - Migrate from dart:js to web package for Wasm support (#102 by [san-smith](https://github.com/san-smith))
