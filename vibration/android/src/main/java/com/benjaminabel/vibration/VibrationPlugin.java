@@ -16,13 +16,6 @@ public class VibrationPlugin implements FlutterPlugin {
         teardownChannels();
     }
 
-    @SuppressWarnings("deprecation")
-    public static void registerWith(io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
-        final VibrationPlugin vibrationPlugin = new VibrationPlugin();
-
-        vibrationPlugin.setupChannels(registrar.messenger(), registrar.context());
-    }
-
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
         setupChannels(binding.getBinaryMessenger(), binding.getApplicationContext());
