@@ -1,3 +1,8 @@
+## 2.0.0
+
+- Remove references to Android embedding v1
+- Update package:web to ">=0.5.1 <2.0.0" (#105 by [dkrutskikh](https://github.com/dkrutskikh))
+
 ## 1.9.0
 
 - Added OpenHarmony support
