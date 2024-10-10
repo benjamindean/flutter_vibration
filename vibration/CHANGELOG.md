@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Bump package `vibration_platform_interface` to "0.0.2"
+
 ## 2.0.0
 
 - Remove references to Android embedding v1

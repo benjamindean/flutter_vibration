@@ -1,6 +1,6 @@
 name: vibration_ohos
 description: The OpenHarmony implementation of vibration.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/benjamindean/flutter_vibration
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  vibration_platform_interface: ^0.0.1
+  vibration_platform_interface: ^0.0.2
   device_info_plus_ohos: ^0.0.7
 
 # dependency_overrides:
