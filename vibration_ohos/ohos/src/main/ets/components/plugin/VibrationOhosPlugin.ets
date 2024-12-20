@@ -52,6 +52,8 @@ export default class VibrationPlugin implements FlutterPlugin, MethodCallHandler
             file = fs.openSync(cacheDir + `/${new Date().getTime()}.json`, fs.OpenMode.WRITE_ONLY | fs.OpenMode.CREATE);
           // let writeLen = await fs.write(file.fd, content);
             let writeLen = await fs.write(file.fd, data.buffer);
+            fs.closeSync(file.fd);
+            file = fs.openSync(file.path, fs.OpenMode.CREATE);
             vibrateEffect = {
               type: 'file',
               hapticFd: {
