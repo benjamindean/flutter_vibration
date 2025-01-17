@@ -14,7 +14,6 @@ public class Vibration {
         this.vibrator = vibrator;
     }
 
-    @SuppressWarnings("deprecation")
     void vibrate(long duration, int amplitude) {
         if (vibrator.hasVibrator()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -35,12 +34,11 @@ public class Vibration {
         }
     }
 
-    @SuppressWarnings("deprecation")
     void vibrate(List<Integer> pattern, int repeat) {
         long[] patternLong = new long[pattern.size()];
 
         for (int i = 0; i < patternLong.length; i++) {
-            patternLong[i] = pattern.get(i).intValue();
+            patternLong[i] = pattern.get(i);
         }
 
         if (vibrator.hasVibrator()) {
@@ -55,13 +53,12 @@ public class Vibration {
         }
     }
 
-    @SuppressWarnings("deprecation")
     void vibrate(List<Integer> pattern, int repeat, List<Integer> intensities) {
         long[] patternLong = new long[pattern.size()];
         int[] intensitiesArray = new int[intensities.size()];
 
         for (int i = 0; i < patternLong.length; i++) {
-            patternLong[i] = pattern.get(i).intValue();
+            patternLong[i] = pattern.get(i);
         }
 
         for (int i = 0; i < intensitiesArray.length; i++) {
