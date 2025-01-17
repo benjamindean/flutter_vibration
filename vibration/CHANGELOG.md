@@ -1,3 +1,8 @@
+## 2.1.0
+
+- Fix vibration on iOS
+- All methods are now properly null-safe
+
 ## 2.0.1
 
 - Bump package `vibration_platform_interface` to "0.0.2"
