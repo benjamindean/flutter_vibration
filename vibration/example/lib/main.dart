@@ -4,6 +4,8 @@ import 'package:vibration/vibration.dart';
 void main() => runApp(VibratingApp());
 
 class VibratingApp extends StatelessWidget {
+  const VibratingApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

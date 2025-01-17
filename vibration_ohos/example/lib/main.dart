@@ -81,7 +81,7 @@ class VibratingApp extends StatelessWidget {
                   // TODO: not support for now
                   if (PlatformUtils.isOhos)
                     ElevatedButton(
-                      child: Text('Vibrate  with custom haptic_file'),
+                      child: const Text('Vibrate  with custom haptic_file'),
                       onPressed: () {
                         rootBundle.load('assets/haptic_file.json').then((data) {
                           (VibrationPlatform.instance as VibrationOhos).vibrate(
@@ -90,7 +90,7 @@ class VibratingApp extends StatelessWidget {
                                 data: data.buffer.asUint8List(),
                               ),
                             ),
-                            vibrateAttribute: VibrateAttribute(
+                            vibrateAttribute: const VibrateAttribute(
                               usage: 'alarm',
                             ),
                           );

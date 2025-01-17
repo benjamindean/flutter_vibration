@@ -14,8 +14,8 @@ class Vibration {
   ///   Vibration.vibrate();
   /// }
   /// ```
-  static Future<bool?> hasVibrator() async {
-    return VibrationPlatform.instance.hasVibrator();
+  static Future<bool> hasVibrator() async {
+    return await VibrationPlatform.instance.hasVibrator() ?? false;
   }
 
   /// Check if the vibrator has amplitude control.
@@ -25,8 +25,8 @@ class Vibration {
   ///   Vibration.vibrate(amplitude: 128);
   /// }
   /// ```
-  static Future<bool?> hasAmplitudeControl() async {
-    return VibrationPlatform.instance.hasAmplitudeControl();
+  static Future<bool> hasAmplitudeControl() async {
+    return await VibrationPlatform.instance.hasAmplitudeControl() ?? false;
   }
 
   /// Check if the device is able to vibrate with a custom
@@ -42,8 +42,9 @@ class Vibration {
   ///   Vibration.vibrate();
   /// }
   /// ```
-  static Future<bool?> hasCustomVibrationsSupport() async {
-    return VibrationPlatform.instance.hasCustomVibrationsSupport();
+  static Future<bool> hasCustomVibrationsSupport() async {
+    return await VibrationPlatform.instance.hasCustomVibrationsSupport() ??
+        false;
   }
 
   /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].
