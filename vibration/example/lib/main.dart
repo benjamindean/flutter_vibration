@@ -4,7 +4,45 @@ import 'package:vibration/vibration.dart';
 void main() => runApp(VibratingApp());
 
 class VibratingApp extends StatelessWidget {
-  const VibratingApp({Key? key}) : super(key: key);
+  const VibratingApp({super.key});
+
+  void showSnackBar(
+    BuildContext context, {
+    List<int> pattern = const [],
+    int duration = -1,
+  }) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
+    if (pattern.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(milliseconds: duration),
+          content: Text('Vibrate for ${duration}ms'),
+        ),
+      );
+
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(
+          milliseconds: pattern.reduce(
+            (value, element) => value + element,
+          ),
+        ),
+        content: Text(
+          pattern
+              .map((e) => pattern.indexOf(e) % 2 == 0
+                  ? 'wait ${e / 1000}s'
+                  : 'vibrate ${e / 1000}s')
+              .join(', '),
+        ),
+      ),
+    );
+
+    return;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,41 +59,58 @@ class VibratingApp extends StatelessWidget {
                   ElevatedButton(
                     child: Text('Vibrate for default 500ms'),
                     onPressed: () {
+                      showSnackBar(context, duration: 500);
+
                       Vibration.vibrate();
                     },
                   ),
                   ElevatedButton(
                     child: Text('Vibrate for 1000ms'),
                     onPressed: () {
+                      showSnackBar(context, duration: 1000);
+
                       Vibration.vibrate(duration: 1000);
                     },
                   ),
                   ElevatedButton(
                     child: Text('Vibrate with pattern'),
                     onPressed: () {
-                      final snackBar = SnackBar(
-                        content: Text(
-                          'Pattern: wait 0.5s, vibrate 1s, wait 0.5s, vibrate 2s, wait 0.5s, vibrate 3s, wait 0.5s, vibrate 0.5s',
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      final List<int> pattern = [
+                        500,
+                        1000,
+                        500,
+                        2000,
+                        500,
+                        3000,
+                        500,
+                        500
+                      ];
+
+                      showSnackBar(context, pattern: pattern);
+
                       Vibration.vibrate(
-                        pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
+                        pattern: pattern,
                       );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Vibrate with pattern and amplitude'),
                     onPressed: () {
-                      final snackBar = SnackBar(
-                        content: Text(
-                          'Pattern: wait 0.5s, vibrate 1s, wait 0.5s, vibrate 2s, wait 0.5s, vibrate 3s, wait 0.5s, vibrate 0.5s',
-                        ),
-                      );
+                      final List<int> pattern = [
+                        500,
+                        1000,
+                        500,
+                        2000,
+                        500,
+                        3000,
+                        500,
+                        500
+                      ];
 
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      showSnackBar(context, pattern: pattern);
+
                       Vibration.vibrate(
-                        pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
+                        pattern: pattern,
                         intensities: [0, 128, 0, 255, 0, 64, 0, 255],
                       );
                     },

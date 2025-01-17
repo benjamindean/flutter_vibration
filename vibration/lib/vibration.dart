@@ -1,5 +1,3 @@
-library vibration;
-
 import 'dart:async';
 
 import 'package:vibration_platform_interface/vibration_platform_interface.dart';
@@ -26,7 +24,11 @@ class Vibration {
   /// }
   /// ```
   static Future<bool> hasAmplitudeControl() async {
-    return await VibrationPlatform.instance.hasAmplitudeControl() ?? false;
+    if (await Vibration.hasVibrator()) {
+      return await VibrationPlatform.instance.hasAmplitudeControl() ?? false;
+    }
+
+    return false;
   }
 
   /// Check if the device is able to vibrate with a custom
@@ -43,8 +45,12 @@ class Vibration {
   /// }
   /// ```
   static Future<bool> hasCustomVibrationsSupport() async {
-    return await VibrationPlatform.instance.hasCustomVibrationsSupport() ??
-        false;
+    if (await Vibration.hasVibrator()) {
+      return await VibrationPlatform.instance.hasCustomVibrationsSupport() ??
+          false;
+    }
+
+    return false;
   }
 
   /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].
@@ -66,7 +72,11 @@ class Vibration {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
-  }) {
+  }) async {
+    if (!(await Vibration.hasVibrator())) {
+      return;
+    }
+
     return VibrationPlatform.instance.vibrate(
       duration: duration,
       pattern: pattern,
@@ -83,7 +93,11 @@ class Vibration {
   /// Vibration.vibrate(duration: 10000);
   /// Vibration.cancel();
   /// ```
-  static Future<void> cancel() {
+  static Future<void> cancel() async {
+    if (!(await Vibration.hasVibrator())) {
+      return;
+    }
+
     return VibrationPlatform.instance.cancel();
   }
 }
