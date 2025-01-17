@@ -1,3 +1,11 @@
+### 3.0.0
+
+- The plugin has been recreated from scratch to align with the latest Flutter and Dart features.
+- The iOS version no longer depends on intensities and amplitude, and it now supports custom durations and patterns.
+- The example app is more intuitive and user-friendly.
+- Calling the `hasVibrator` method is no longer necessary.
+- Adjustments for null safety have been implemented.
+
 ## 2.1.0
 
 - Fix vibration on iOS
@@ -105,7 +113,7 @@
 ## 1.1.0
 
 - Migrate to AndroidX (by [@gastonmuijtjens](https://github.com/gastonmuijtjens))
-- Add unit test for canceling vibration (by [@vintage](https://github.com/vintage)) 
+- Add unit test for canceling vibration (by [@vintage](https://github.com/vintage))
 
 ## 1.0.2
 

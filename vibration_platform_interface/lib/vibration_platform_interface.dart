@@ -38,7 +38,7 @@ abstract class VibrationPlatform extends PlatformInterface {
   ///   Vibration.vibrate();
   /// }
   /// ```
-  Future<bool?> hasVibrator() async {
+  Future<bool> hasVibrator() async {
     throw UnimplementedError('deviceInfo() has not been implemented.');
   }
 
@@ -49,7 +49,7 @@ abstract class VibrationPlatform extends PlatformInterface {
   ///   Vibration.vibrate(amplitude: 128);
   /// }
   /// ```
-  Future<bool?> hasAmplitudeControl() async {
+  Future<bool> hasAmplitudeControl() async {
     throw UnimplementedError('deviceInfo() has not been implemented.');
   }
 
@@ -66,7 +66,7 @@ abstract class VibrationPlatform extends PlatformInterface {
   ///   Vibration.vibrate();
   /// }
   /// ```
-  Future<bool?> hasCustomVibrationsSupport() async {
+  Future<bool> hasCustomVibrationsSupport() async {
     throw UnimplementedError('deviceInfo() has not been implemented.');
   }
 

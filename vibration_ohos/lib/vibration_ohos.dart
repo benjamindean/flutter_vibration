@@ -26,7 +26,7 @@ class VibrationOhos extends VibrationPlatform {
   /// }
   /// ```
   @override
-  Future<bool?> hasVibrator() async {
+  Future<bool> hasVibrator() async {
     try {
       final deviceData = await ohosDeviceInfo.ohosDeviceInfo;
 
@@ -50,7 +50,7 @@ class VibrationOhos extends VibrationPlatform {
   /// }
   /// ```
   @override
-  Future<bool?> hasAmplitudeControl() async {
+  Future<bool> hasAmplitudeControl() async {
     try {
       final deviceData = await ohosDeviceInfo.ohosDeviceInfo;
       if (!deviceData.isPhysicalDevice) {
@@ -79,7 +79,7 @@ class VibrationOhos extends VibrationPlatform {
   /// }
   /// ```
   @override
-  Future<bool?> hasCustomVibrationsSupport() async {
+  Future<bool> hasCustomVibrationsSupport() async {
     try {
       return true;
     } on MissingPluginException {

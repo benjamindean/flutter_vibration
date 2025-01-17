@@ -8,24 +8,24 @@ A plugin for handling Vibration API on iOS, Android, and web. [API docs.](https:
 
 1. Add `vibration` to the dependencies section of `pubspec.yaml`.
 
-    ``` yml
-    dependencies:
-      vibration: ^1.8.4
-    ```
+   ```yml
+   dependencies:
+     vibration: ^3.0.0
+   ```
 
 2. Import package:
 
-    ``` dart
-    import 'package:vibration/vibration.dart';
-    ```
+   ```dart
+   import 'package:vibration/vibration.dart';
+   ```
 
 ## Methods
 
 ### hasVibrator
 
-Check if the target device has vibration capabilities.
+Check if the target device has vibration capabilities. Not required when using other methods.
 
-``` dart
+```dart
 if (await Vibration.hasVibrator()) {
     Vibration.vibrate();
 }
@@ -36,7 +36,7 @@ if (await Vibration.hasVibrator()) {
 Check if the target device has the ability to control the vibration amplitude,
 introduced in Android 8.0 Oreo - false for all earlier API levels.
 
-``` dart
+```dart
 if (await Vibration.hasAmplitudeControl()) {
     Vibration.vibrate(amplitude: 128);
 }
@@ -62,27 +62,27 @@ if (await Vibration.hasCustomVibrationsSupport()) {
 
 #### With specific duration (for example, 1 second):
 
-``` dart
+```dart
 Vibration.vibrate(duration: 1000);
 ```
 
-Default duration is 500ms. 
+Default duration is 500ms.
 
 #### With specific duration and specific amplitude (if supported):
 
-``` dart
+```dart
 Vibration.vibrate(duration: 1000, amplitude: 128);
 ```
 
 #### With pattern (wait 500ms, vibrate 1s, wait 500ms, vibrate 2s):
 
-``` dart
+```dart
 Vibration.vibrate(pattern: [500, 1000, 500, 2000]);
 ```
 
 #### With pattern (wait 500ms, vibrate 1s, wait 500ms, vibrate 2s) at varying intensities (1 - min, 255 - max):
 
-``` dart
+```dart
 Vibration.vibrate(pattern: [500, 1000, 500, 2000], intensities: [1, 255]);
 ```
 
@@ -90,7 +90,7 @@ Vibration.vibrate(pattern: [500, 1000, 500, 2000], intensities: [1, 255]);
 
 Stop ongoing vibration.
 
-``` dart
+```dart
 Vibration.cancel();
 ```
 
@@ -98,7 +98,7 @@ Vibration.cancel();
 
 The `VIBRATE` permission is required in AndroidManifest.xml.
 
-``` xml
+```xml
 <uses-permission android:name="android.permission.VIBRATE"/>
 ```
 
@@ -110,13 +110,11 @@ For the rest of the usage instructions, see [Vibrator](https://developer.android
 Supports vibration with duration and pattern on CoreHaptics devices. On older devices, the pattern is emulated with 500ms long vibrations.
 You can check whether the current device has CoreHaptics support using [`hasCustomVibrationsSupport`](#hasCustomVibrationsSupport).
 
-
 ## OpenHarmony
 
 The OpenHarmony implementation of [`vibration`][1].
 
 [`vibration`][1] 在 OpenHarmony 平台的实现。
-
 
 Add the following permission settings to your project's module.json5 file.
 
@@ -124,7 +122,7 @@ Add the following permission settings to your project's module.json5 file.
 
 ```json
     "requestPermissions": [
-         {"name" :  "ohos.permission.VIBRATE"},                
+         {"name" :  "ohos.permission.VIBRATE"},
     ]
 ```
 
@@ -138,7 +136,6 @@ dependencies:
 
 `vibrateEffect` and `vibrateAttribute` are only exist in `VibrationOhos`.
 
-
 ```dart
  (VibrationPlatform.instance as VibrationOhos).vibrate(
    vibrateEffect: const VibratePreset(count: 100),
@@ -148,4 +145,4 @@ dependencies:
  );
 ```
 
- [1]: https://pub.dev/packages/vibration
+[1]: https://pub.dev/packages/vibration
