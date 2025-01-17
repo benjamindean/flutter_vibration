@@ -13,7 +13,7 @@ class Vibration {
   /// }
   /// ```
   static Future<bool> hasVibrator() async {
-    return await VibrationPlatform.instance.hasVibrator() ?? false;
+    return await VibrationPlatform.instance.hasVibrator();
   }
 
   /// Check if the vibrator has amplitude control.
@@ -24,10 +24,6 @@ class Vibration {
   /// }
   /// ```
   static Future<bool> hasAmplitudeControl() async {
-    if (await Vibration.hasVibrator()) {
-      return await VibrationPlatform.instance.hasAmplitudeControl() ?? false;
-    }
-
     return false;
   }
 
@@ -45,11 +41,6 @@ class Vibration {
   /// }
   /// ```
   static Future<bool> hasCustomVibrationsSupport() async {
-    if (await Vibration.hasVibrator()) {
-      return await VibrationPlatform.instance.hasCustomVibrationsSupport() ??
-          false;
-    }
-
     return false;
   }
 
@@ -73,10 +64,6 @@ class Vibration {
     List<int> intensities = const [],
     int amplitude = -1,
   }) async {
-    if (!(await Vibration.hasVibrator())) {
-      return;
-    }
-
     return VibrationPlatform.instance.vibrate(
       duration: duration,
       pattern: pattern,
@@ -94,10 +81,6 @@ class Vibration {
   /// Vibration.cancel();
   /// ```
   static Future<void> cancel() async {
-    if (!(await Vibration.hasVibrator())) {
-      return;
-    }
-
     return VibrationPlatform.instance.cancel();
   }
 }
