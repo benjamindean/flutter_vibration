@@ -83,4 +83,53 @@ class Vibration {
   static Future<void> cancel() async {
     return VibrationPlatform.instance.cancel();
   }
+
+  static Future<void> singleShortBuzz() {
+    return Vibration.vibrate(
+      pattern: [0, 100],
+      intensities: [0, 255],
+    );
+  }
+
+  static Future<void> doubleBuzz() {
+    return Vibration.vibrate(
+      pattern: [0, 100, 50, 100],
+      intensities: [0, 255, 0, 255],
+    );
+  }
+
+  static Future<void> tripleBuzz() {
+    return Vibration.vibrate(
+      pattern: [0, 100, 50, 100, 50, 100],
+      intensities: [0, 255, 0, 255, 0, 255],
+    );
+  }
+
+  static Future<void> longAlarmBuzz() {
+    return Vibration.vibrate(
+      pattern: [0, 500],
+      intensities: [0, 255],
+    );
+  }
+
+  static Future<void> pulseWave() {
+    return Vibration.vibrate(
+      pattern: [0, 100, 100, 100, 100, 100],
+      intensities: [0, 200, 0, 200, 0, 200],
+    );
+  }
+
+  static Future<void> progressiveBuzz() {
+    return Vibration.vibrate(
+      pattern: [0, 100, 200, 300, 400, 500],
+      intensities: [0, 100, 150, 200, 255, 255],
+    );
+  }
+
+  static Future<void> rhythmicBuzz() {
+    return Vibration.vibrate(
+      pattern: [0, 200, 100, 300, 100, 200],
+      intensities: [0, 150, 0, 255, 0, 200],
+    );
+  }
 }

@@ -114,6 +114,83 @@ class VibratingApp extends StatelessWidget {
                         intensities: [0, 128, 0, 255, 0, 64, 0, 255],
                       );
                     },
+                  ),
+                  ElevatedButton(
+                    child: Text('Single Short Buzz'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 100],
+                      );
+
+                      Vibration.singleShortBuzz();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Double Buzz'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 100, 50, 100],
+                      );
+
+                      Vibration.doubleBuzz();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Triple Buzz'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 100, 50, 100, 50, 100],
+                      );
+
+                      Vibration.tripleBuzz();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Long Alarm Buzz'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 500],
+                      );
+
+                      Vibration.longAlarmBuzz();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Pulse Wave'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 100, 100, 100, 100, 100],
+                      );
+
+                      Vibration.pulseWave();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Progressive Buzz'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 100, 200, 300, 400, 500],
+                      );
+
+                      Vibration.progressiveBuzz();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Rhythmic Buzz'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 200, 100, 300, 100, 200],
+                      );
+
+                      Vibration.rhythmicBuzz();
+                    },
                   )
                 ],
               ),
