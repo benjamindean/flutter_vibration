@@ -191,6 +191,127 @@ class VibratingApp extends StatelessWidget {
 
                       Vibration.rhythmicBuzz();
                     },
+                  ),
+                  ElevatedButton(
+                    child: Text('Gentle Reminder'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 50, 100, 50, 100, 50],
+                      );
+
+                      Vibration.gentleReminder();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Quick Success Alert'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 70, 30, 70, 30, 70],
+                      );
+
+                      Vibration.quickSuccessAlert();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Zig Zag Alert'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 100, 30, 300, 30, 100],
+                      );
+
+                      Vibration.zigZagAlert();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Soft Pulse'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 150, 50, 150, 50, 150],
+                      );
+
+                      Vibration.softPulse();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Emergency Alert'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 500, 50, 500, 50, 500],
+                      );
+
+                      Vibration.emergencyAlert();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Heartbeat Vibration'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 200, 100, 100, 100, 200],
+                      );
+
+                      Vibration.heartbeatVibration();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Countdown Timer Alert'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [
+                          0,
+                          100,
+                          100,
+                          200,
+                          100,
+                          300,
+                          100,
+                          400,
+                          100,
+                          500
+                        ],
+                      );
+
+                      Vibration.countdownTimerAlert();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Rapid Tap Feedback'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 50, 50, 50, 50, 50, 50, 50],
+                      );
+
+                      Vibration.rapidTapFeedback();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Dramatic Notification'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 100, 200, 100, 300, 100, 400],
+                      );
+
+                      Vibration.dramaticNotification();
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Urgent Buzz Wave'),
+                    onPressed: () {
+                      showSnackBar(
+                        context,
+                        pattern: [0, 300, 50, 300, 50, 300, 50, 300],
+                      );
+
+                      Vibration.urgentBuzzWave();
+                    },
                   )
                 ],
               ),

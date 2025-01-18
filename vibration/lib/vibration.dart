@@ -84,6 +84,8 @@ class Vibration {
     return VibrationPlatform.instance.cancel();
   }
 
+  /// The following methods are examples of custom vibration patterns.
+
   static Future<void> singleShortBuzz() {
     return Vibration.vibrate(
       pattern: [0, 100],
@@ -130,6 +132,76 @@ class Vibration {
     return Vibration.vibrate(
       pattern: [0, 200, 100, 300, 100, 200],
       intensities: [0, 150, 0, 255, 0, 200],
+    );
+  }
+
+  static Future<void> gentleReminder() {
+    return Vibration.vibrate(
+      pattern: [0, 50, 100, 50, 100, 50],
+      intensities: [0, 128, 0, 128, 0, 128],
+    );
+  }
+
+  static Future<void> quickSuccessAlert() {
+    return Vibration.vibrate(
+      pattern: [0, 70, 30, 70, 30, 70],
+      intensities: [0, 255, 0, 255, 0, 255],
+    );
+  }
+
+  static Future<void> zigZagAlert() {
+    return Vibration.vibrate(
+      pattern: [0, 100, 30, 300, 30, 100],
+      intensities: [0, 200, 0, 255, 0, 200],
+    );
+  }
+
+  static Future<void> softPulse() {
+    return Vibration.vibrate(
+      pattern: [0, 150, 50, 150, 50, 150],
+      intensities: [0, 100, 0, 100, 0, 100],
+    );
+  }
+
+  static Future<void> emergencyAlert() {
+    return Vibration.vibrate(
+      pattern: [0, 500, 50, 500, 50, 500],
+      intensities: [0, 255, 0, 255, 0, 255],
+    );
+  }
+
+  static Future<void> heartbeatVibration() {
+    return Vibration.vibrate(
+      pattern: [0, 200, 100, 100, 100, 200],
+      intensities: [0, 255, 0, 100, 0, 255],
+    );
+  }
+
+  static Future<void> countdownTimerAlert() {
+    return Vibration.vibrate(
+      pattern: [0, 100, 100, 200, 100, 300, 100, 400, 100, 500],
+      intensities: [0, 100, 0, 150, 0, 200, 0, 255, 0, 255],
+    );
+  }
+
+  static Future<void> rapidTapFeedback() {
+    return Vibration.vibrate(
+      pattern: [0, 50, 50, 50, 50, 50, 50, 50],
+      intensities: [0, 180, 0, 180, 0, 180, 0, 180],
+    );
+  }
+
+  static Future<void> dramaticNotification() {
+    return Vibration.vibrate(
+      pattern: [0, 100, 200, 100, 300, 100, 400],
+      intensities: [0, 255, 0, 200, 0, 150, 0],
+    );
+  }
+
+  static Future<void> urgentBuzzWave() {
+    return Vibration.vibrate(
+      pattern: [0, 300, 50, 300, 50, 300, 50, 300],
+      intensities: [0, 255, 0, 230, 0, 210, 0, 200],
     );
   }
 }
