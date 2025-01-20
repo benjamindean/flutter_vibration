@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vibration/vibration.dart';
+import 'package:vibration/vibration_presets.dart';
 
 void main() => runApp(VibratingApp());
 
@@ -54,7 +55,7 @@ class VibratingApp extends StatelessWidget {
         body: Builder(
           builder: (BuildContext context) {
             return Center(
-              child: Column(
+              child: ListView(
                 children: <Widget>[
                   ElevatedButton(
                     child: Text('Vibrate for default 500ms'),
@@ -115,202 +116,285 @@ class VibratingApp extends StatelessWidget {
                       );
                     },
                   ),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Vibration Presets:',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
                   ElevatedButton(
                     child: Text('Single Short Buzz'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.singleShortBuzz]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 100],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.singleShortBuzz();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.singleShortBuzz,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Double Buzz'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.doubleBuzz]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 100, 50, 100],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.doubleBuzz();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.doubleBuzz,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Triple Buzz'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.tripleBuzz]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 100, 50, 100, 50, 100],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.tripleBuzz();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.tripleBuzz,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Long Alarm Buzz'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.longAlarmBuzz]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 500],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.longAlarmBuzz();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.longAlarmBuzz,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Pulse Wave'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.pulseWave]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 100, 100, 100, 100, 100],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.pulseWave();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.pulseWave,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Progressive Buzz'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.progressiveBuzz]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 100, 200, 300, 400, 500],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.progressiveBuzz();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.progressiveBuzz,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Rhythmic Buzz'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.rhythmicBuzz]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 200, 100, 300, 100, 200],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.rhythmicBuzz();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.rhythmicBuzz,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Gentle Reminder'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.gentleReminder]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 50, 100, 50, 100, 50],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.gentleReminder();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.gentleReminder,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Quick Success Alert'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.quickSuccessAlert]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 70, 30, 70, 30, 70],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.quickSuccessAlert();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.quickSuccessAlert,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Zig Zag Alert'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.zigZagAlert]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 100, 30, 300, 30, 100],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.zigZagAlert();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.zigZagAlert,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Soft Pulse'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.softPulse]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 150, 50, 150, 50, 150],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.softPulse();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.softPulse,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Emergency Alert'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.emergencyAlert]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 500, 50, 500, 50, 500],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.emergencyAlert();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.emergencyAlert,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Heartbeat Vibration'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.heartbeatVibration]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 200, 100, 100, 100, 200],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.heartbeatVibration();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.heartbeatVibration,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Countdown Timer Alert'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.countdownTimerAlert]!;
+
                       showSnackBar(
                         context,
-                        pattern: [
-                          0,
-                          100,
-                          100,
-                          200,
-                          100,
-                          300,
-                          100,
-                          400,
-                          100,
-                          500
-                        ],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.countdownTimerAlert();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.countdownTimerAlert,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Rapid Tap Feedback'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.rapidTapFeedback]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 50, 50, 50, 50, 50, 50, 50],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.rapidTapFeedback();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.rapidTapFeedback,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Dramatic Notification'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.dramaticNotification]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 100, 200, 100, 300, 100, 400],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.dramaticNotification();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.dramaticNotification,
+                      );
                     },
                   ),
                   ElevatedButton(
                     child: Text('Urgent Buzz Wave'),
                     onPressed: () {
+                      final VibrationPresetConfig preset =
+                          presets[VibrationPreset.urgentBuzzWave]!;
+
                       showSnackBar(
                         context,
-                        pattern: [0, 300, 50, 300, 50, 300, 50, 300],
+                        pattern: preset.pattern,
                       );
 
-                      Vibration.urgentBuzzWave();
+                      Vibration.vibrate(
+                        preset: VibrationPreset.urgentBuzzWave,
+                      );
                     },
                   )
                 ],

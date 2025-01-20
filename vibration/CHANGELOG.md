@@ -1,3 +1,8 @@
+### 3.1.0
+
+- Add common vibration patterns for Android and iOS.
+- Add `sharpness` parameter for iOS.
+
 ### 3.0.0
 
 - The plugin has been recreated from scratch to align with the latest Flutter and Dart features.

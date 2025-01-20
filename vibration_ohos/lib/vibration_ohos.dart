@@ -107,6 +107,7 @@ class VibrationOhos extends VibrationPlatform {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
+    double sharpness = 1.0,
     // ohos only
     VibrateEffect? vibrateEffect,
     // ohos only
