@@ -2,6 +2,7 @@ package com.benjaminabel.vibration;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 
@@ -14,9 +15,10 @@ public class VibrationPlugin implements FlutterPlugin {
     private static final String CHANNEL = "vibration";
     private MethodChannel methodChannel;
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        final Vibrator vibrator = (Vibrator) flutterPluginBinding.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        final Vibrator vibrator = (Vibrator) flutterPluginBinding.getApplicationContext().getSystemService(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? Context.VIBRATOR_SERVICE : Context.VIBRATOR_MANAGER_SERVICE);
         final VibrationMethodChannelHandler methodChannelHandler = new VibrationMethodChannelHandler(new Vibration(vibrator));
 
         this.methodChannel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL);
