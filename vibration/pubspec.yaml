@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
-  vibration_platform_interface: ^0.0.3
+  vibration_platform_interface: ^0.1.0
 
 dev_dependencies:
   flutter_test:

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:vibration/vibration_presets.dart';
 import 'package:vibration_platform_interface/vibration_platform_interface.dart';
-export 'package:vibration_platform_interface/vibration_platform_interface.dart';
 
 /// Platform-independent vibration methods.
 class Vibration {

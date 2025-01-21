@@ -64,12 +64,22 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
         return false;
     }
 
+    private func getAmplitude(myArgs: [String: Any]) -> Int {
+        let amplitude = myArgs["amplitude"] as? Int ?? -1
+
+        if amplitude == -1 {
+            return 255
+        }
+
+        return amplitude
+    }
+
     private func getIntensities(myArgs: [String: Any]) -> [Int] {
         if let intensities = myArgs["intensities"] as? [Int], !intensities.isEmpty {
             return intensities
         }
 
-        let amplitude = myArgs["amplitude"] as? Int ?? 255
+        let amplitude = getAmplitude(myArgs: myArgs)
         let pattern = getPattern(myArgs: myArgs)
 
         if pattern.count == 1 {
@@ -80,11 +90,19 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
     }
 
     private func getPattern(myArgs: [String: Any]) -> [Int] {
-        return myArgs["pattern"] as? [Int] ?? [getDuration(myArgs: myArgs)]
+        let pattern = myArgs["pattern"] as! [Int]
+
+        if (pattern.isEmpty) {
+            return [getDuration(myArgs: myArgs)]
+        }
+
+        return pattern
     }
 
     private func getDuration(myArgs: [String: Any]) -> Int {
-        return myArgs["duration"] as? Int ?? 500
+        let duration = myArgs["duration"] as! Int
+
+        return duration == -1 ? 500 : duration
     }
 
     @available(iOS 13.0, *)
@@ -98,11 +116,17 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
 
         for (i, duration) in patternArray.enumerated() {
             if intensities[i] != 0 {
-                let p = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(intensities[i]) / 255.0)
-                let s = CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness)
-                let event = CHHapticEvent(eventType: .hapticContinuous, parameters: [p, s], relativeTime: rel, duration: Double(duration) / 1000.0)
-
-                hapticEvents.append(event)
+                hapticEvents.append(
+                    CHHapticEvent(
+                        eventType: .hapticContinuous,
+                        parameters: [
+                            CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(intensities[i]) / 255.0),
+                            CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness)
+                        ],
+                        relativeTime: rel,
+                        duration: Double(duration) / 1000.0
+                    )
+                )
 
                 rel += Double(duration) / 1000.0
             } else {

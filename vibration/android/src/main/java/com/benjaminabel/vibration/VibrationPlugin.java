@@ -8,10 +8,9 @@ import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-public class VibrationPlugin implements FlutterPlugin, MethodCallHandler {
+public class VibrationPlugin implements FlutterPlugin {
     private static final String CHANNEL = "vibration";
     private MethodChannel methodChannel;
 
@@ -22,15 +21,6 @@ public class VibrationPlugin implements FlutterPlugin, MethodCallHandler {
 
         this.methodChannel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL);
         this.methodChannel.setMethodCallHandler(methodChannelHandler);
-    }
-
-    @Override
-    public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-        if (call.method.equals("getPlatformVersion")) {
-            result.success("Android " + android.os.Build.VERSION.RELEASE);
-        } else {
-            result.notImplemented();
-        }
     }
 
     @Override
