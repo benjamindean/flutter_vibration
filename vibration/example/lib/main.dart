@@ -50,12 +50,13 @@ class VibratingApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Vibration Plugin example app'),
+          title: const Center(child: Text('Vibration Plugin')),
         ),
         body: Builder(
           builder: (BuildContext context) {
             return Center(
               child: ListView(
+                padding: const EdgeInsets.all(16.0),
                 children: <Widget>[
                   ElevatedButton(
                     child: Text('Vibrate for default 500ms'),
@@ -116,6 +117,41 @@ class VibratingApp extends StatelessWidget {
                       );
                     },
                   ),
+                  SizedBox(height: 20),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'iOS only:',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    child: Text('Vibrate for 1000ms with 0.0 sharpness'),
+                    onPressed: () {
+                      showSnackBar(context, duration: 1000);
+
+                      Vibration.vibrate(duration: 1000, sharpness: 0.0);
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Vibrate for 1000ms with 0.5 sharpness'),
+                    onPressed: () {
+                      showSnackBar(context, duration: 1000);
+
+                      Vibration.vibrate(duration: 1000, sharpness: 0.5);
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Vibrate for 1000ms with 1.0 sharpness'),
+                    onPressed: () {
+                      showSnackBar(context, duration: 1000);
+
+                      Vibration.vibrate(duration: 1000, sharpness: 1.0);
+                    },
+                  ),
+                  SizedBox(height: 20),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
