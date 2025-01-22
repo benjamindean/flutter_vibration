@@ -10,7 +10,7 @@ A plugin for handling Vibration API on iOS, Android, and web. [API docs.](https:
 
    ```yml
    dependencies:
-     vibration: ^3.0.0
+     vibration: ^3.1.0
    ```
 
 2. Import package:
@@ -60,6 +60,16 @@ if (await Vibration.hasCustomVibrationsSupport()) {
 
 ### vibrate
 
+#### Method Arguments
+
+- `duration`: Duration of the vibration in milliseconds. Default is 500ms.
+- `pattern`: List of integers representing the vibration pattern. Alternates between wait and vibrate durations.
+- `repeat`: Index in the pattern at which to repeat, or -1 for no repeat. Default is -1.
+- `intensities`: List of integers representing the vibration intensities for each segment in the pattern.
+- `amplitude`: Amplitude of the vibration. Range is 1 to 255. Default is -1 (use platform default).
+- `sharpness`: Sharpness of the vibration. iOS only. Range is 0.0 to 1.0. Default is 0.5.
+- `preset`: Predefined vibration preset. Overrides other parameters if provided.
+
 #### With specific duration (for example, 1 second):
 
 ```dart
@@ -85,6 +95,37 @@ Vibration.vibrate(pattern: [500, 1000, 500, 2000]);
 ```dart
 Vibration.vibrate(pattern: [500, 1000, 500, 2000], intensities: [1, 255]);
 ```
+
+#### With vibration presets:
+
+You can use predefined vibration presets for common use cases.
+
+```dart
+Vibration.vibrate(preset: VibrationPreset.alarm);
+```
+
+Available presets:
+
+- `VibrationPreset.alarm`
+- `VibrationPreset.notification`
+- `VibrationPreset.heartbeat`
+- `VibrationPreset.singleShortBuzz`
+- `VibrationPreset.doubleBuzz`
+- `VibrationPreset.tripleBuzz`
+- `VibrationPreset.longAlarmBuzz`
+- `VibrationPreset.pulseWave`
+- `VibrationPreset.progressiveBuzz`
+- `VibrationPreset.rhythmicBuzz`
+- `VibrationPreset.gentleReminder`
+- `VibrationPreset.quickSuccessAlert`
+- `VibrationPreset.zigZagAlert`
+- `VibrationPreset.softPulse`
+- `VibrationPreset.emergencyAlert`
+- `VibrationPreset.heartbeatVibration`
+- `VibrationPreset.countdownTimerAlert`
+- `VibrationPreset.rapidTapFeedback`
+- `VibrationPreset.dramaticNotification`
+- `VibrationPreset.urgentBuzzWave`
 
 ### cancel
 

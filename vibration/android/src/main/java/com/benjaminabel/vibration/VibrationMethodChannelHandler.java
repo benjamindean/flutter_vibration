@@ -1,6 +1,7 @@
 package com.benjaminabel.vibration;
 
 import android.os.Build;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ class VibrationMethodChannelHandler implements MethodChannel.MethodCallHandler {
     }
 
     @Override
-    public void onMethodCall(MethodCall call, MethodChannel.Result result) {
+    public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
         switch (call.method) {
             case "hasAmplitudeControl":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -34,13 +35,13 @@ class VibrationMethodChannelHandler implements MethodChannel.MethodCallHandler {
 
                 break;
             case "vibrate":
-                int duration = call.argument("duration");
+                Integer duration = call.argument("duration");
                 List<Integer> pattern = call.argument("pattern");
-                int repeat = call.argument("repeat");
+                Integer repeat = call.argument("repeat");
                 List<Integer> intensities = call.argument("intensities");
-                int amplitude = call.argument("amplitude");
+                Integer amplitude = call.argument("amplitude");
 
-                if (pattern.size() > 0 && intensities.size() > 0) {
+                if (!pattern.isEmpty() && !intensities.isEmpty()) {
                     vibration.vibrate(pattern, repeat, intensities);
                 } else if (pattern.size() > 0) {
                     vibration.vibrate(pattern, repeat);

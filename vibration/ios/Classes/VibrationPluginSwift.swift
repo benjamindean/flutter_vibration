@@ -64,31 +64,29 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
         return false;
     }
 
-    private func getIntensities(myArgs: [String: Any]) -> [Int] {
-        let intensities = myArgs["intensities"] as! [Int]
+    private func getAmplitude(myArgs: [String: Any]) -> Int {
+        let amplitude = myArgs["amplitude"] as? Int ?? -1
 
-        if (intensities.isEmpty) {
-            let amplitude = myArgs["amplitude"] as! Int
-            let pattern = getPattern(myArgs: myArgs)
-
-            if (!pattern.isEmpty) {
-                var filledIntensities: [Int] = []
-
-                if (pattern.count == 1) {
-                    return [amplitude == -1 ? 255 : amplitude]
-                }
-
-                for i in 0..<pattern.count {
-                    filledIntensities.append((i % 2 == 0) ? 0 : (amplitude == -1 ? 255 : amplitude))
-                }
-
-                return filledIntensities
-            }
-
-            return [amplitude == -1 ? 255 : amplitude]
+        if amplitude == -1 {
+            return 255
         }
 
-        return intensities
+        return amplitude
+    }
+
+    private func getIntensities(myArgs: [String: Any]) -> [Int] {
+        if let intensities = myArgs["intensities"] as? [Int], !intensities.isEmpty {
+            return intensities
+        }
+
+        let amplitude = getAmplitude(myArgs: myArgs)
+        let pattern = getPattern(myArgs: myArgs)
+
+        if pattern.count == 1 {
+            return [amplitude]
+        }
+
+        return pattern.enumerated().map { $0.offset % 2 == 0 ? 0 : amplitude }
     }
 
     private func getPattern(myArgs: [String: Any]) -> [Int] {
@@ -111,45 +109,31 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
     private func playPattern(myArgs: [String: Any]) -> Void {
         let intensities = getIntensities(myArgs: myArgs)
         let patternArray = getPattern(myArgs: myArgs)
+        let sharpness = myArgs["sharpness"] as? Float ?? 0.5
 
-        // Create haptic events
         var hapticEvents: [CHHapticEvent] = []
-
-        var i: Int = 0
         var rel: Double = 0.0
 
-        while i < patternArray.count {
-            // Get intensity parameter, if any
-            if (i < intensities.count) {
-                if (intensities[i] != 0) {
-                    let p = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(Double(intensities[i]) / 255.0))
-
-                    // Get wait time and duration
-                    let duration = Double(patternArray[i]) / 1000.0
-
-                    // Create haptic event
-                    let e = CHHapticEvent(
+        for (i, duration) in patternArray.enumerated() {
+            if intensities[i] != 0 {
+                hapticEvents.append(
+                    CHHapticEvent(
                         eventType: .hapticContinuous,
-                        parameters: [p],
+                        parameters: [
+                            CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(intensities[i]) / 255.0),
+                            CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness)
+                        ],
                         relativeTime: rel,
-                        duration: duration
+                        duration: Double(duration) / 1000.0
                     )
+                )
 
-                    hapticEvents.append(e)
-
-                    // Add duration to relative time
-                    rel += duration
-                } else {
-                    let waitTime = Double(patternArray[i]) / 1000.0
-
-                    rel += waitTime
-                }
+                rel += Double(duration) / 1000.0
+            } else {
+                rel += Double(duration) / 1000.0
             }
-
-            i += 1
         }
 
-        // Try to play engine
         do {
             if let engine = VibrationPluginSwift.engine {
                 let patternToPlay = try CHHapticPattern(events: hapticEvents, parameters: [])

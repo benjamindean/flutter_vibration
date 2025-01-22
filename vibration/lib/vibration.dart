@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:vibration/vibration_presets.dart';
 import 'package:vibration_platform_interface/vibration_platform_interface.dart';
-export 'package:vibration_platform_interface/vibration_platform_interface.dart';
 
 /// Platform-independent vibration methods.
 class Vibration {
   /// Check if vibrator is available on device.
+  ///
+  /// Returns `true` if the device has a vibrator, otherwise `false`.
   ///
   /// ```dart
   /// if (await Vibration.hasVibrator()) {
@@ -18,6 +20,8 @@ class Vibration {
 
   /// Check if the vibrator has amplitude control.
   ///
+  /// Returns `true` if the device supports amplitude control, otherwise `false`.
+  ///
   /// ```dart
   /// if (await Vibration.hasAmplitudeControl()) {
   ///   Vibration.vibrate(amplitude: 128);
@@ -28,8 +32,9 @@ class Vibration {
   }
 
   /// Check if the device is able to vibrate with a custom
-  /// [duration], [pattern] or [intensities].
-  /// May return `true` even if the device has no vibrator.
+  /// [duration], [pattern], or [intensities].
+  ///
+  /// Returns `true` if the device supports custom vibrations, otherwise `false`.
   ///
   /// ```dart
   /// if (await Vibration.hasCustomVibrationsSupport()) {
@@ -49,6 +54,8 @@ class Vibration {
   /// The default vibration duration is 500ms.
   /// Amplitude is a range from 1 to 255, if supported.
   ///
+  /// If [preset] is provided, it overrides other parameters and uses the preset configuration.
+  ///
   /// ```dart
   /// Vibration.vibrate(duration: 1000);
   ///
@@ -56,6 +63,8 @@ class Vibration {
   ///   Vibration.vibrate(duration: 1000, amplitude: 1);
   ///   Vibration.vibrate(duration: 1000, amplitude: 255);
   /// }
+  ///
+  /// Vibration.vibrate(preset: VibrationPreset.quickSuccessAlert);
   /// ```
   static Future<void> vibrate({
     int duration = 500,
@@ -63,18 +72,37 @@ class Vibration {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
+    // sharpness is iOS only
+    double sharpness = 0.5,
+    VibrationPreset? preset,
   }) async {
+    if (preset != null) {
+      final VibrationPresetConfig? vibrationPreset = presets[preset];
+
+      if (vibrationPreset == null) {
+        throw ArgumentError('Invalid preset: $preset');
+      }
+
+      return VibrationPlatform.instance.vibrate(
+        pattern: vibrationPreset.pattern,
+        intensities: vibrationPreset.intensities,
+      );
+    }
+
     return VibrationPlatform.instance.vibrate(
       duration: duration,
       pattern: pattern,
       repeat: repeat,
       intensities: intensities,
       amplitude: amplitude,
+      sharpness: sharpness,
     );
   }
 
-  /// This method is used to cancel an ongoing vibration.
-  /// iOS: only works for custom haptic vibrations using `CHHapticEngine.
+  /// Cancel an ongoing vibration.
+  ///
+  /// This method stops any ongoing vibration.
+  /// On iOS, it only works for custom haptic vibrations using `CHHapticEngine`.
   ///
   /// ```dart
   /// Vibration.vibrate(duration: 10000);
