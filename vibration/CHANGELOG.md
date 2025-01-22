@@ -2,6 +2,7 @@
 
 - Add common vibration patterns for Android and iOS.
 - Add `sharpness` parameter for iOS.
+- Suppress deprecation warnings for `vibrate` method on Android.
 
 ### 3.0.0
 
