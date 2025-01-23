@@ -1,3 +1,7 @@
+### 3.1.1
+
+- Fix some cases where intensities were not being used correctly.
+
 ### 3.1.0
 
 - Add common vibration patterns for Android and iOS.

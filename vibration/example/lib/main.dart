@@ -96,7 +96,7 @@ class VibratingApp extends StatelessWidget {
                     },
                   ),
                   ElevatedButton(
-                    child: Text('Vibrate with pattern and amplitude'),
+                    child: Text('Vibrate with pattern and intensities'),
                     onPressed: () {
                       final List<int> pattern = [
                         500,

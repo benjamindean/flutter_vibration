@@ -67,17 +67,11 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
     private func getAmplitude(myArgs: [String: Any]) -> Int {
         let amplitude = myArgs["amplitude"] as? Int ?? -1
 
-        if amplitude == -1 {
-            return 255
-        }
-
-        return amplitude
+        return amplitude == -1 ? 255 : amplitude
     }
 
     private func getIntensities(myArgs: [String: Any]) -> [Int] {
-        if let intensities = myArgs["intensities"] as? [Int], !intensities.isEmpty {
-            return intensities
-        }
+        let intensities = myArgs["intensities"] as? [Int] ?? []
 
         let amplitude = getAmplitude(myArgs: myArgs)
         let pattern = getPattern(myArgs: myArgs)
@@ -86,11 +80,18 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
             return [amplitude]
         }
 
+        if intensities.count < pattern.count {
+            return intensities + Array(
+                repeating: intensities.last ?? amplitude,
+                count: pattern.count - intensities.count
+            )
+        }
+
         return pattern.enumerated().map { $0.offset % 2 == 0 ? 0 : amplitude }
     }
 
     private func getPattern(myArgs: [String: Any]) -> [Int] {
-        let pattern = myArgs["pattern"] as! [Int]
+        let pattern = myArgs["pattern"] as? [Int] ?? []
 
         if (pattern.isEmpty) {
             return [getDuration(myArgs: myArgs)]
@@ -100,16 +101,20 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
     }
 
     private func getDuration(myArgs: [String: Any]) -> Int {
-        let duration = myArgs["duration"] as! Int
+        let duration = myArgs["duration"] as? Int ?? -1
 
         return duration == -1 ? 500 : duration
+    }
+
+    private func getSharpness(myArgs: [String: Any]) -> Float {
+        return myArgs["sharpness"] as? Float ?? 0.5
     }
 
     @available(iOS 13.0, *)
     private func playPattern(myArgs: [String: Any]) -> Void {
         let intensities = getIntensities(myArgs: myArgs)
         let patternArray = getPattern(myArgs: myArgs)
-        let sharpness = myArgs["sharpness"] as? Float ?? 0.5
+        let sharpness = getSharpness(myArgs: myArgs)
 
         var hapticEvents: [CHHapticEvent] = []
         var rel: Double = 0.0
