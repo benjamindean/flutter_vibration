@@ -28,7 +28,7 @@ class Vibration {
   /// }
   /// ```
   static Future<bool> hasAmplitudeControl() async {
-    return false;
+    return await VibrationPlatform.instance.hasAmplitudeControl();
   }
 
   /// Check if the device is able to vibrate with a custom
@@ -46,7 +46,7 @@ class Vibration {
   /// }
   /// ```
   static Future<bool> hasCustomVibrationsSupport() async {
-    return false;
+    return await VibrationPlatform.instance.hasCustomVibrationsSupport();
   }
 
   /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].

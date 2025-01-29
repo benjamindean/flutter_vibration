@@ -1,3 +1,7 @@
+### 3.1.2
+
+- Restore `hasAmplitudeControl` and `hasCustomVibrationsSupport` methods.
+
 ### 3.1.1
 
 - Fix some cases where intensities were not being used correctly.
