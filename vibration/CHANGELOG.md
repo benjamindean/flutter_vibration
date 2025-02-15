@@ -1,3 +1,8 @@
+### 3.1.3
+
+- Fix intensities on iOS.
+- Lower miminum Compile SDK version for Android to 34
+
 ### 3.1.2
 
 - Restore `hasAmplitudeControl` and `hasCustomVibrationsSupport` methods.
