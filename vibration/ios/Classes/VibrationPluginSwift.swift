@@ -80,6 +80,10 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
             return [amplitude]
         }
 
+        if (intensities.count == pattern.count) {
+            return intensities
+        }
+
         if intensities.count < pattern.count {
             return intensities + Array(
                 repeating: intensities.last ?? amplitude,
