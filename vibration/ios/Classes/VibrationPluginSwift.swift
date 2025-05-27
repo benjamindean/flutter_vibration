@@ -151,7 +151,7 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
                 try player.start(atTime: 0)
             }
         } catch {
-            print("Failed to play pattern: \(error.localizedDescription).")
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
         }
     }
 
