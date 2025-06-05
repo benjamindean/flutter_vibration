@@ -151,7 +151,7 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
                 try player.start(atTime: 0)
             }
         } catch {
-            print("Failed to play pattern: \(error.localizedDescription).")
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
         }
     }
 
@@ -176,7 +176,11 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
                 result(true)
                 return
             }
-
+            guard let pattern = myArgs["pattern"] as? [Int] else {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                result(true)
+                return
+            }
             if !supportsHaptics() {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                 result(true)
