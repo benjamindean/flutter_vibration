@@ -1,6 +1,6 @@
 ## 0.0.4
 
-* Bump package `device_info_plus_ohos` to "0.0.8"
+* Bump package `device_info_plus_ohos` to ">=0.0.7 <1.0.0"
 * Bump package `vibration_platform_interface` to "0.1.1"
 
 ## 0.0.3
