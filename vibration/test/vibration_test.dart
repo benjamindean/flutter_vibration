@@ -107,7 +107,8 @@ void main() {
             'pattern': [],
             'repeat': -1,
             'amplitude': -1,
-            'intensities': []
+            'intensities': [],
+            'sharpness': 0.5,
           })
         ],
       );
@@ -127,7 +128,8 @@ void main() {
             'pattern': [100, 200, 400],
             'repeat': 1,
             'amplitude': -1,
-            'intensities': []
+            'intensities': [],
+            'sharpness': 0.5,
           })
         ],
       );

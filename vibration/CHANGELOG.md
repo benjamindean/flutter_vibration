@@ -1,3 +1,14 @@
+### 3.1.4
+
+> Note: This release has breaking changes.
+>
+> Plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+- Bump package `vibration_platform_interface` to "0.1.1"
+
 ### 3.1.3
 
 - Fix intensities on iOS.
