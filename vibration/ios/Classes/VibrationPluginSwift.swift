@@ -151,7 +151,8 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
                 try player.start(atTime: 0)
             }
         } catch {
-            print("Failed to play pattern: \(error.localizedDescription).")
+            print("Failed to play pattern: \(error.localizedDescription). Play default.")
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
         }
     }
 
@@ -160,8 +161,6 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
         VibrationPluginSwift.engine?.stop(completionHandler: { error in
             if let error = error {
                 print("Error stopping haptic engine: \(error)")
-            } else {
-                print("Haptic engine stopped successfully.")
             }
         })
     }
