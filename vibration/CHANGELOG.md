@@ -1,3 +1,7 @@
+### 3.1.5
+
+- Adds Swift Package Manager compatibility.
+
 ### 3.1.4
 
 > Note: This release has breaking changes.
