@@ -3,7 +3,7 @@ import CoreHaptics
 import Flutter
 import UIKit
 
-public class VibrationPluginSwift: NSObject, FlutterPlugin {
+public class VibrationPlugin: NSObject, FlutterPlugin {
 #if targetEnvironment(simulator)
     private let isDevice = false
 #else
@@ -15,10 +15,10 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "vibration", binaryMessenger: registrar.messenger())
-        let instance = VibrationPluginSwift()
+        let instance = VibrationPlugin()
 
         if #available(iOS 13.0, *) {
-            VibrationPluginSwift.createEngine()
+            VibrationPlugin.createEngine()
         }
 
         registrar.addMethodCallDelegate(instance, channel: channel)
@@ -28,28 +28,28 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
     public static func createEngine() {
         // Create and configure a haptic engine.
         do {
-            VibrationPluginSwift.engine = try CHHapticEngine()
+            VibrationPlugin.engine = try CHHapticEngine()
         } catch {
             print("Engine creation error: \(error)")
             return
         }
 
-        if VibrationPluginSwift.engine == nil {
+        if VibrationPlugin.engine == nil {
             print("Failed to create engine!")
         }
 
         // The stopped handler alerts you of engine stoppage due to external causes.
-        VibrationPluginSwift.engine?.stoppedHandler = { reason in
+        VibrationPlugin.engine?.stoppedHandler = { reason in
             print("The engine stopped for reason: \(reason.rawValue)")
         }
 
         // The reset handler provides an opportunity for your app to restart the engine in case of failure.
-        VibrationPluginSwift.engine?.resetHandler = {
+        VibrationPlugin.engine?.resetHandler = {
             // Try restarting the engine.
             print("The engine reset --> Restarting now!")
 
             do {
-                try VibrationPluginSwift.engine?.start()
+                try VibrationPlugin.engine?.start()
             } catch {
                 print("Failed to restart the engine: \(error)")
             }
@@ -144,7 +144,7 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
         }
 
         do {
-            if let engine = VibrationPluginSwift.engine {
+            if let engine = VibrationPlugin.engine {
                 let patternToPlay = try CHHapticPattern(events: hapticEvents, parameters: [])
                 let player = try engine.makePlayer(with: patternToPlay)
                 try engine.start()
@@ -157,7 +157,7 @@ public class VibrationPluginSwift: NSObject, FlutterPlugin {
 
     @available(iOS 13.0, *)
     private func cancelVibration() {
-        VibrationPluginSwift.engine?.stop(completionHandler: { error in
+        VibrationPlugin.engine?.stop(completionHandler: { error in
             if let error = error {
                 print("Error stopping haptic engine: \(error)")
             } else {
