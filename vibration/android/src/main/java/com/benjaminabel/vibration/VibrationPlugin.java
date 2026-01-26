@@ -17,12 +17,20 @@ public class VibrationPlugin implements FlutterPlugin {
     @SuppressWarnings("deprecation")
     public Vibrator getVibrator(@NonNull FlutterPluginBinding flutterPluginBinding) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            return (Vibrator) flutterPluginBinding.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+            return getLegacyVibrator(flutterPluginBinding);
         } else {
-            final VibratorManager vibratorManager = (VibratorManager) flutterPluginBinding.getApplicationContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+            try {
+                final VibratorManager vibratorManager = (VibratorManager) flutterPluginBinding.getApplicationContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
 
-            return vibratorManager.getDefaultVibrator();
+                return vibratorManager.getDefaultVibrator();
+            } catch(NoSuchMethodError | NoClassDefFoundError e) {
+                return getLegacyVibrator(flutterPluginBinding);
+            }
         }
+    }
+
+    private Vibrator getLegacyVibrator(@NonNull FlutterPluginBinding flutterPluginBinding) {
+        return (Vibrator) flutterPluginBinding.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @Override
