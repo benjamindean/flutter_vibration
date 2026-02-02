@@ -72,8 +72,9 @@ class Vibration {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
-    // sharpness is iOS only
-    double sharpness = 0.5,
+    // sharpness is iOS only. -1.0 means not provided (will use intensity * 0.5)
+    double sharpness = -1.0,
+    List<double> sharpnesses = const [],
     VibrationPreset? preset,
   }) async {
     if (preset != null) {
@@ -96,6 +97,7 @@ class Vibration {
       intensities: intensities,
       amplitude: amplitude,
       sharpness: sharpness,
+      sharpnesses: sharpnesses,
     );
   }
 

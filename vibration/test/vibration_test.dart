@@ -108,7 +108,8 @@ void main() {
             'repeat': -1,
             'amplitude': -1,
             'intensities': [],
-            'sharpness': 0.5,
+            'sharpness': -1.0,
+            'sharpnesses': [],
           })
         ],
       );
@@ -129,7 +130,8 @@ void main() {
             'repeat': 1,
             'amplitude': -1,
             'intensities': [],
-            'sharpness': 0.5,
+            'sharpness': -1.0,
+            'sharpnesses': [],
           })
         ],
       );

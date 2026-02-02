@@ -89,7 +89,8 @@ abstract class VibrationPlatform extends PlatformInterface {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
-    double sharpness = 0.5,
+    double sharpness = -1.0,
+    List<double> sharpnesses = const [],
   }) {
     throw UnimplementedError('deviceInfo() has not been implemented.');
   }
