@@ -1,3 +1,7 @@
+### 3.1.6
+
+- Fix crash on Android. (#140 by @armanagarwal)
+
 ### 3.1.5
 
 - Adds Swift Package Manager compatibility.
@@ -7,6 +11,7 @@
 > Note: This release has breaking changes.
 >
 > Plugin now requires the following:
+>
 > - Android Gradle Plugin >=8.12.1
 > - Gradle wrapper >=8.13
 > - Kotlin 2.2.0
