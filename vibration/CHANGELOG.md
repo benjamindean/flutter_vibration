@@ -1,3 +1,7 @@
+### 3.1.7-dev.1
+
+- Attempt to fix deprecation warning on Android.
+
 ### 3.1.6
 
 - Fix crash on Android. (#140 by @armanagarwal)
