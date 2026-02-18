@@ -1,3 +1,7 @@
+### 3.1.7
+
+- Fix Android deprecation warning for VIBRATOR_SERVICE. (#144 by @zeienko-vitalii)
+
 ### 3.1.7-dev.1
 
 - Attempt to fix deprecation warning on Android.
