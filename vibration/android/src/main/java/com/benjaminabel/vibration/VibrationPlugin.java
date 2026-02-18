@@ -15,7 +15,6 @@ public class VibrationPlugin implements FlutterPlugin {
     private static final String CHANNEL = "vibration";
     private MethodChannel methodChannel;
 
-    @SuppressWarnings("deprecation")
     public Vibrator getVibrator(@NonNull FlutterPluginBinding flutterPluginBinding) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             return getLegacyVibrator(flutterPluginBinding);
@@ -30,7 +29,8 @@ public class VibrationPlugin implements FlutterPlugin {
         }
     }
 
-   private Vibrator getLegacyVibrator(@NonNull FlutterPluginBinding flutterPluginBinding) {
+    @SuppressWarnings("deprecation")
+    private Vibrator getLegacyVibrator(@NonNull FlutterPluginBinding flutterPluginBinding) {
         final Context context = flutterPluginBinding.getApplicationContext();
 
         Vibrator vibrator = ContextCompat.getSystemService(context, Vibrator.class);
