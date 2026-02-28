@@ -1,3 +1,7 @@
+### 3.1.8
+
+- Fix `repeat` parameter ignored on iOS. (#145 by @zeienko-vitalii)
+
 ### 3.1.7
 
 - Fix Android deprecation warning for VIBRATOR_SERVICE. (#144 by @zeienko-vitalii)

@@ -49,6 +49,7 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
         // which is an intentional completion and not applicable to our usage.
         VibrationPlugin.engine?.stoppedHandler = { reason in
             print("The engine stopped for reason: \(reason.rawValue)")
+
             if reason != .notifyWhenFinished {
                 VibrationPlugin.repeatGeneration += 1
             }
@@ -152,6 +153,7 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
 
         for i in startIndex..<pattern.count {
             let duration = pattern[i]
+
             if intensities[i] != 0 {
                 hapticEvents.append(
                     CHHapticEvent(
@@ -165,6 +167,7 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
                     )
                 )
             }
+
             rel += Double(duration) / 1000.0
         }
 
@@ -221,6 +224,7 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
                 try self.playHapticEvents(loopEvents)
             } catch {
                 print("Failed to play repeat loop: \(error.localizedDescription).")
+
                 return
             }
             self.scheduleRepeat(
@@ -244,15 +248,18 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
 
         do {
             let events = buildHapticEvents(pattern: patternArray, intensities: intensities, sharpness: sharpness)
+
             try playHapticEvents(events)
         } catch {
             print("Failed to play pattern: \(error.localizedDescription).")
+
             return
         }
 
         guard repeatIndex >= 0, repeatIndex < patternArray.count else { return }
 
         VibrationPlugin.repeatGeneration += 1
+        
         let gen = VibrationPlugin.repeatGeneration
         let firstPlayMs = patternArray.reduce(0, +)
         let loopSliceMs = patternArray[repeatIndex...].reduce(0, +)
@@ -282,42 +289,48 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "hasCustomVibrationsSupport":
-            result(supportsHaptics())
-        case "vibrate":
-            guard let myArgs = call.arguments as? [String: Any] else {
+            case "hasCustomVibrationsSupport":
+                result(supportsHaptics())
+            case "vibrate":
+                guard let myArgs = call.arguments as? [String: Any] else {
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                    result(true)
+
+                    return
+                }
+
+                if !supportsHaptics() {
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                    result(true)
+
+                    return
+                }
+
+                if #available(iOS 13.0, *) {
+                    playPattern(myArgs: myArgs)
+                    result(true)
+
+                    return
+                }
+
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                 result(true)
-                return
-            }
 
-            if !supportsHaptics() {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                return
+            case "cancel":
+                if #available(iOS 13.0, *) {
+                    cancelVibration()
+                } else {
+                    result(false)
+                }
+
                 result(true)
+
                 return
-            }
-
-            if #available(iOS 13.0, *) {
-                playPattern(myArgs: myArgs)
-                result(true)
+            default:
+                result(FlutterMethodNotImplemented)
+                
                 return
-            }
-
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-            result(true)
-            return
-        case "cancel":
-            if #available(iOS 13.0, *) {
-                cancelVibration()
-            } else {
-                result(false)
-            }
-
-            result(true)
-            return
-        default:
-            result(FlutterMethodNotImplemented)
-            return
         }
     }
 }
