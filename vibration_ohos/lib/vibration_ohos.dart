@@ -107,23 +107,21 @@ class VibrationOhos extends VibrationPlatform {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
-    double sharpness = 1.0,
+    double? sharpness,
+    List<double> sharpnesses = const [],
     // ohos only
     VibrateEffect? vibrateEffect,
     // ohos only
     VibrateAttribute vibrateAttribute = const VibrateAttribute(),
-  }) =>
-      _channel.invokeMethod(
-        "vibrate",
-        {
-          "vibrateEffect": (vibrateEffect ??
-                  (repeat > 0
-                      ? VibratePreset(count: repeat)
-                      : VibrateTime(duration: duration)))
-              .toMap(),
-          "vibrateAttribute": vibrateAttribute.toString(),
-        },
-      );
+  }) => _channel.invokeMethod("vibrate", {
+    "vibrateEffect":
+        (vibrateEffect ??
+                (repeat > 0
+                    ? VibratePreset(count: repeat)
+                    : VibrateTime(duration: duration)))
+            .toMap(),
+    "vibrateAttribute": vibrateAttribute.toString(),
+  });
 
   /// This method is used to cancel an ongoing vibration.
   /// iOS: only works for custom haptic vibrations using `CHHapticEngine.
@@ -152,16 +150,11 @@ class VibrateTime with VibrateEffect {
   /// 马达持续振动时长, 单位ms。
   final int duration;
 
-  const VibrateTime({
-    required this.duration,
-  });
+  const VibrateTime({required this.duration});
 
   @override
   Map<String, dynamic> toMap() {
-    return {
-      'type': 'time',
-      'duration': duration,
-    };
+    return {'type': 'time', 'duration': duration};
   }
 }
 
@@ -180,11 +173,7 @@ class VibratePreset with VibrateEffect {
 
   @override
   Map<String, dynamic> toMap() {
-    return {
-      'type': 'preset',
-      'effectId': effectId,
-      'count': count,
-    };
+    return {'type': 'preset', 'effectId': effectId, 'count': count};
   }
 }
 
@@ -193,16 +182,11 @@ class VibratePreset with VibrateEffect {
 class VibrateFromFile with VibrateEffect {
   final HapticFileDescriptor hapticFd;
 
-  const VibrateFromFile({
-    required this.hapticFd,
-  });
+  const VibrateFromFile({required this.hapticFd});
 
   @override
   Map<String, dynamic> toMap() {
-    return {
-      'type': 'file',
-      'hapticFd': hapticFd.toMap(),
-    };
+    return {'type': 'file', 'hapticFd': hapticFd.toMap()};
   }
 }
 
@@ -215,11 +199,7 @@ class HapticFileDescriptor {
   final int? length;
   final Uint8List data;
 
-  const HapticFileDescriptor({
-    this.offset,
-    this.length,
-    required this.data,
-  });
+  const HapticFileDescriptor({this.offset, this.length, required this.data});
 
   Map<String, dynamic> toMap() {
     return {
@@ -248,16 +228,10 @@ class VibrateAttribute {
   /// simulateReality		用于模拟现实场景。
   final String usage;
 
-  const VibrateAttribute({
-    this.id,
-    this.usage = 'unknown',
-  });
+  const VibrateAttribute({this.id, this.usage = 'unknown'});
 
   Map<String, dynamic> toMap() {
-    return {
-      if (id != null) 'id': id,
-      'usage': usage,
-    };
+    return {if (id != null) 'id': id, 'usage': usage};
   }
 
   @override

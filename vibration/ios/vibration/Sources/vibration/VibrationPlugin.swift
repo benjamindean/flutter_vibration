@@ -94,36 +94,18 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
         return pattern.enumerated().map { $0.offset % 2 == 0 ? 0 : amplitude }
     }
 
-    private func getSharpnesses(myArgs: [String: Any]) -> [Float] {
-        let sharpnesses = myArgs["sharpnesses"] as? [Double] ?? []
-        let pattern = getPattern(myArgs: myArgs)
-        let intensity = Float(getAmplitude(myArgs: myArgs)) / 255.0
-
-        if pattern.count == 1 {
-            return [getSharpness(myArgs: myArgs, intensity: intensity)]
+    /// Sanitizes a raw sharpness value for CoreHaptics.
+    /// Returns a value clamped to [0.0, 1.0], or the fallback if raw is nil/NaN/infinite/negative.
+    private func sanitizeSharpness(raw: Double?, fallback: Float) -> Float {
+        guard let raw = raw, raw.isFinite, raw >= 0 else {
+            return min(max(fallback, 0.0), 1.0)
         }
+        return min(max(Float(raw), 0.0), 1.0)
+    }
 
-        let defaultSharpness = getSharpness(myArgs: myArgs, intensity: intensity)
-        
-        // If sharpnesses is empty or provided but not enough items, pad or repeat similar to intensities logic?
-        // Logic: specific sharpnesses list takes precedence. If empty, we use single sharpness (or default).
-        if sharpnesses.isEmpty {
-             return [] 
-        }
-
-        if (sharpnesses.count == pattern.count) {
-            return sharpnesses.map { Float($0) }
-        }
-
-        if sharpnesses.count < pattern.count {
-             return (sharpnesses.map { Float($0) }) + Array(
-                repeating: Float(sharpnesses.last ?? Double(defaultSharpness)),
-                count: pattern.count - sharpnesses.count
-            )
-        }
-        
-        // If sharpnesses has more items, just truncate or use as is (zipping will handle it)
-        return sharpnesses.map { Float($0) }
+    private func rawSharpnessAt(index: Int, from list: [Double]) -> Double? {
+        guard index >= 0, index < list.count else { return nil }
+        return list[index]
     }
 
     private func getPattern(myArgs: [String: Any]) -> [Int] {
@@ -142,21 +124,15 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
         return duration == -1 ? 500 : duration
     }
 
-    /// Returns sharpness value. If sharpness is not explicitly provided (indicated by -1.0),
-    /// it calculates sharpness as intensity * 0.5 for backward compatibility.
     private func getSharpness(myArgs: [String: Any], intensity: Float) -> Float {
-        let sharpness = myArgs["sharpness"] as? Float ?? -1.0
-        if sharpness < 0 {
-            // If sharpness not provided, use intensity * 0.5 as default
-            return intensity * 0.5
-        }
-        return sharpness
+        let raw = myArgs["sharpness"] as? Double
+        return sanitizeSharpness(raw: raw, fallback: intensity * 0.5)
     }
 
     @available(iOS 13.0, *)
     private func playPattern(myArgs: [String: Any]) -> Void {
         let intensities = getIntensities(myArgs: myArgs)
-        let sharpnesses = getSharpnesses(myArgs: myArgs)
+        let rawSharpnesses = myArgs["sharpnesses"] as? [Double] ?? []
         let patternArray = getPattern(myArgs: myArgs)
 
         var hapticEvents: [CHHapticEvent] = []
@@ -165,16 +141,11 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
         for (i, duration) in patternArray.enumerated() {
             if intensities[i] != 0 {
                 let normalizedIntensity = Float(intensities[i]) / 255.0
-                
-                // Determine sharpness: 
-                // 1. If sharpnesses list is available and has index, use it.
-                // 2. Fallback to scalar getSharpness logic.
-                let sharpness: Float
-                if !sharpnesses.isEmpty && i < sharpnesses.count {
-                    sharpness = sharpnesses[i]
-                } else {
-                    sharpness = getSharpness(myArgs: myArgs, intensity: normalizedIntensity)
-                }
+
+                let sharpness = sanitizeSharpness(
+                    raw: rawSharpnessAt(index: i, from: rawSharpnesses),
+                    fallback: getSharpness(myArgs: myArgs, intensity: normalizedIntensity)
+                )
 
                 hapticEvents.append(
                     CHHapticEvent(

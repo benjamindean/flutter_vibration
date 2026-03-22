@@ -4,15 +4,15 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'src/method_channel_vibration.dart';
 
-/// The interface that implementations of device_info must implement.
+/// The interface that implementations of vibration must implement.
 ///
-/// Platform implementations should extend this class rather than implement it as `device_info`
+/// Platform implementations should extend this class rather than implement it as `vibration`
 /// does not consider newly added methods to be breaking changes. Extending this class
 /// (using `extends`) ensures that the subclass will get the default implementation, while
 /// platform implementations that `implements` this interface will be broken by newly added
 /// [VibrationPlatform] methods.
 abstract class VibrationPlatform extends PlatformInterface {
-  /// Constructs a UrlLauncherPlatform.
+  /// Constructs a VibrationPlatform.
   VibrationPlatform() : super(token: _token);
 
   static final Object _token = Object();
@@ -39,7 +39,7 @@ abstract class VibrationPlatform extends PlatformInterface {
   /// }
   /// ```
   Future<bool> hasVibrator() async {
-    throw UnimplementedError('deviceInfo() has not been implemented.');
+    throw UnimplementedError('hasVibrator() has not been implemented.');
   }
 
   /// Check if the vibrator has amplitude control.
@@ -50,7 +50,7 @@ abstract class VibrationPlatform extends PlatformInterface {
   /// }
   /// ```
   Future<bool> hasAmplitudeControl() async {
-    throw UnimplementedError('deviceInfo() has not been implemented.');
+    throw UnimplementedError('hasAmplitudeControl() has not been implemented.');
   }
 
   /// Check if the device is able to vibrate with a custom
@@ -67,13 +67,21 @@ abstract class VibrationPlatform extends PlatformInterface {
   /// }
   /// ```
   Future<bool> hasCustomVibrationsSupport() async {
-    throw UnimplementedError('deviceInfo() has not been implemented.');
+    throw UnimplementedError(
+      'hasCustomVibrationsSupport() has not been implemented.',
+    );
   }
 
   /// Vibrate with [duration] at [amplitude] or [pattern] at [intensities].
   ///
   /// The default vibration duration is 500ms.
   /// Amplitude is a range from 1 to 255, if supported.
+  ///
+  /// [sharpness] is iOS only. When provided, must be in the range 0.0 to 1.0.
+  /// When omitted, the iOS native fallback logic applies (intensity × 0.5).
+  ///
+  /// [sharpnesses] is iOS only. Per-segment sharpness values for pattern
+  /// vibrations, each in the range 0.0 to 1.0.
   ///
   /// ```dart
   /// Vibration.vibrate(duration: 1000);
@@ -89,20 +97,20 @@ abstract class VibrationPlatform extends PlatformInterface {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
-    double sharpness = -1.0,
+    double? sharpness,
     List<double> sharpnesses = const [],
   }) {
-    throw UnimplementedError('deviceInfo() has not been implemented.');
+    throw UnimplementedError('vibrate() has not been implemented.');
   }
 
   /// This method is used to cancel an ongoing vibration.
-  /// iOS: only works for custom haptic vibrations using `CHHapticEngine.
+  /// iOS: only works for custom haptic vibrations using `CHHapticEngine`.
   ///
   /// ```dart
   /// Vibration.vibrate(duration: 10000);
   /// Vibration.cancel();
   /// ```
   Future<void> cancel() {
-    throw UnimplementedError('deviceInfo() has not been implemented.');
+    throw UnimplementedError('cancel() has not been implemented.');
   }
 }

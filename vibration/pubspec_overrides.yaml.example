@@ -1,0 +1,3 @@
+dependency_overrides:
+  vibration_platform_interface:
+    path: ../vibration_platform_interface

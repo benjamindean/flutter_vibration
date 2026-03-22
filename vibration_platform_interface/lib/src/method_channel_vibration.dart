@@ -124,7 +124,7 @@ class MethodChannelVibration extends VibrationPlatform {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
-    double sharpness = -1.0,
+    double? sharpness,
     List<double> sharpnesses = const [],
   }) => _channel.invokeMethod("vibrate", {
     "duration": duration,
@@ -132,7 +132,7 @@ class MethodChannelVibration extends VibrationPlatform {
     "repeat": repeat,
     "amplitude": amplitude,
     "intensities": intensities,
-    "sharpness": sharpness,
+    if (sharpness != null) "sharpness": sharpness,
     "sharpnesses": sharpnesses,
   });
 

@@ -40,9 +40,6 @@ class VibrationMethodChannelHandler implements MethodChannel.MethodCallHandler {
                 Integer repeat = call.argument("repeat");
                 List<Integer> intensities = call.argument("intensities");
                 Integer amplitude = call.argument("amplitude");
-                // sharpness is iOS only. Ignored on Android.
-                Double sharpness = call.argument("sharpness");
-                List<Double> sharpnesses = call.argument("sharpnesses");
 
                 if (!pattern.isEmpty() && !intensities.isEmpty()) {
                     vibration.vibrate(pattern, repeat, intensities);
