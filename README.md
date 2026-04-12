@@ -19,17 +19,7 @@ This is a monorepo. The `vibration` and `vibration_ohos` packages depend on
 changes haven't been published yet, you need local path overrides to run
 analysis and tests.
 
-### Quick start
-
-```bash
-./scripts/verify_local.sh
-```
-
-The script creates temporary `pubspec_overrides.yaml` files, runs
-`flutter analyze` and `flutter test` across the three packages, then removes
-the overrides automatically.
-
-### Manual setup
+### Setup
 
 Copy the example override in each consumer package:
 
