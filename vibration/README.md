@@ -67,7 +67,8 @@ if (await Vibration.hasCustomVibrationsSupport()) {
 - `repeat`: Index in the pattern at which to repeat, or -1 for no repeat. Default is -1.
 - `intensities`: List of integers representing the vibration intensities for each segment in the pattern.
 - `amplitude`: Amplitude of the vibration. Range is 1 to 255. Default is -1 (use platform default).
-- `sharpness`: Sharpness of the vibration. iOS only. Range is 0.0 to 1.0. Default is 0.5.
+- `sharpness`: Sharpness of the vibration. iOS only. Range is 0.0 to 1.0. When omitted, iOS uses a native fallback derived from the current intensity (intensity × 0.5). With the default amplitude (255), this results in a sharpness of ~0.5, but the actual value varies with amplitude/intensities.
+- `sharpnesses`: Per-segment sharpness values for pattern vibrations. iOS only. Each value must be in the range 0.0 to 1.0. When provided, these take precedence over the scalar `sharpness` for each corresponding pattern segment.
 - `preset`: Predefined vibration preset. Overrides other parameters if provided.
 
 #### With specific duration (for example, 1 second):

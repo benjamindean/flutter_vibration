@@ -106,6 +106,20 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
         return pattern.enumerated().map { $0.offset % 2 == 0 ? 0 : amplitude }
     }
 
+    /// Sanitizes a raw sharpness value for CoreHaptics.
+    /// Returns a value clamped to [0.0, 1.0], or the fallback if raw is nil/NaN/infinite/negative.
+    private func sanitizeSharpness(raw: Double?, fallback: Float) -> Float {
+        guard let raw = raw, raw.isFinite, raw >= 0 else {
+            return min(max(fallback, 0.0), 1.0)
+        }
+        return min(max(Float(raw), 0.0), 1.0)
+    }
+
+    private func rawSharpnessAt(index: Int, from list: [Double]) -> Double? {
+        guard index >= 0, index < list.count else { return nil }
+        return list[index]
+    }
+
     private func getPattern(myArgs: [String: Any]) -> [Int] {
         let pattern = myArgs["pattern"] as? [Int] ?? []
 
@@ -122,8 +136,9 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
         return duration == -1 ? 500 : duration
     }
 
-    private func getSharpness(myArgs: [String: Any]) -> Float {
-        return myArgs["sharpness"] as? Float ?? 0.5
+    private func getSharpness(myArgs: [String: Any], intensity: Float) -> Float {
+        let raw = myArgs["sharpness"] as? Double
+        return sanitizeSharpness(raw: raw, fallback: intensity * 0.5)
     }
 
     /// Returns the repeat index from the method arguments, defaulting to `-1` (no repeat).
@@ -135,19 +150,24 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
 
     /// Builds an array of `CHHapticEvent` values from a slice of the pattern.
     ///
+    /// Sharpness is resolved per segment: `sharpnesses[i]` wins when present; otherwise
+    /// the scalar `sharpness` is used, and finally the historical intensity × 0.5 fallback.
+    ///
     /// - Parameters:
     ///   - pattern: Timing values in milliseconds, alternating silence and vibration durations.
     ///   - intensities: Amplitude values (0–255) corresponding to each element in `pattern`.
-    ///   - sharpness: Haptic sharpness applied to all vibration events.
+    ///   - myArgs: Original method-call arguments, used to derive scalar and per-segment sharpness.
     ///   - startIndex: Index into `pattern` and `intensities` to begin from. Defaults to `0`
     ///                 (full pattern). Pass `repeatIndex` here when building loop-slice events.
     @available(iOS 13.0, *)
     private func buildHapticEvents(
         pattern: [Int],
         intensities: [Int],
-        sharpness: Float,
+        myArgs: [String: Any],
         startIndex: Int = 0
     ) -> [CHHapticEvent] {
+        let rawSharpnesses = myArgs["sharpnesses"] as? [Double] ?? []
+
         var hapticEvents: [CHHapticEvent] = []
         var rel: Double = 0.0
 
@@ -155,11 +175,17 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
             let duration = pattern[i]
 
             if intensities[i] != 0 {
+                let normalizedIntensity = Float(intensities[i]) / 255.0
+                let sharpness = sanitizeSharpness(
+                    raw: rawSharpnessAt(index: i, from: rawSharpnesses),
+                    fallback: getSharpness(myArgs: myArgs, intensity: normalizedIntensity)
+                )
+
                 hapticEvents.append(
                     CHHapticEvent(
                         eventType: .hapticContinuous,
                         parameters: [
-                            CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(intensities[i]) / 255.0),
+                            CHHapticEventParameter(parameterID: .hapticIntensity, value: normalizedIntensity),
                             CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness)
                         ],
                         relativeTime: rel,
@@ -195,7 +221,7 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
     /// - Parameters:
     ///   - pattern: Full pattern array (only the slice from `startIndex` onward is played).
     ///   - intensities: Amplitude values corresponding to each element in `pattern`.
-    ///   - sharpness: Haptic sharpness forwarded to `buildHapticEvents`.
+    ///   - myArgs: Original method-call arguments, used to derive scalar and per-segment sharpness.
     ///   - startIndex: Index in `pattern` at which each iteration begins.
     ///   - loopSliceMs: Duration of one loop iteration in milliseconds; reused as the delay
     ///                  before the next iteration.
@@ -205,7 +231,7 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
     private func scheduleRepeat(
         pattern: [Int],
         intensities: [Int],
-        sharpness: Float,
+        myArgs: [String: Any],
         startIndex: Int,
         loopSliceMs: Int,
         generation: Int,
@@ -218,7 +244,7 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
                 let loopEvents = self.buildHapticEvents(
                     pattern: pattern,
                     intensities: intensities,
-                    sharpness: sharpness,
+                    myArgs: myArgs,
                     startIndex: startIndex
                 )
                 try self.playHapticEvents(loopEvents)
@@ -230,7 +256,7 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
             self.scheduleRepeat(
                 pattern: pattern,
                 intensities: intensities,
-                sharpness: sharpness,
+                myArgs: myArgs,
                 startIndex: startIndex,
                 loopSliceMs: loopSliceMs,
                 generation: generation,
@@ -243,11 +269,19 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
     private func playPattern(myArgs: [String: Any]) -> Void {
         let intensities = getIntensities(myArgs: myArgs)
         let patternArray = getPattern(myArgs: myArgs)
-        let sharpness = getSharpness(myArgs: myArgs)
         let repeatIndex = getRepeat(myArgs: myArgs)
 
+        // Any new play request replaces an outstanding repeat loop, even if this request
+        // does not itself repeat.
+        VibrationPlugin.repeatGeneration += 1
+        let generation = VibrationPlugin.repeatGeneration
+
         do {
-            let events = buildHapticEvents(pattern: patternArray, intensities: intensities, sharpness: sharpness)
+            let events = buildHapticEvents(
+                pattern: patternArray,
+                intensities: intensities,
+                myArgs: myArgs
+            )
 
             try playHapticEvents(events)
         } catch {
@@ -258,19 +292,16 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
 
         guard repeatIndex >= 0, repeatIndex < patternArray.count else { return }
 
-        VibrationPlugin.repeatGeneration += 1
-        
-        let gen = VibrationPlugin.repeatGeneration
         let firstPlayMs = patternArray.reduce(0, +)
         let loopSliceMs = patternArray[repeatIndex...].reduce(0, +)
 
         scheduleRepeat(
             pattern: patternArray,
             intensities: intensities,
-            sharpness: sharpness,
+            myArgs: myArgs,
             startIndex: repeatIndex,
             loopSliceMs: loopSliceMs,
-            generation: gen,
+            generation: generation,
             afterMs: firstPlayMs
         )
     }
@@ -329,7 +360,7 @@ public class VibrationPlugin: NSObject, FlutterPlugin {
                 return
             default:
                 result(FlutterMethodNotImplemented)
-                
+
                 return
         }
     }

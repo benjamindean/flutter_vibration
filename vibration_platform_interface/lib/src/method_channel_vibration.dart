@@ -124,19 +124,17 @@ class MethodChannelVibration extends VibrationPlatform {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
-    double sharpness = 0.5,
-  }) =>
-      _channel.invokeMethod(
-        "vibrate",
-        {
-          "duration": duration,
-          "pattern": pattern,
-          "repeat": repeat,
-          "amplitude": amplitude,
-          "intensities": intensities,
-          "sharpness": sharpness,
-        },
-      );
+    double? sharpness,
+    List<double> sharpnesses = const [],
+  }) => _channel.invokeMethod("vibrate", {
+    "duration": duration,
+    "pattern": pattern,
+    "repeat": repeat,
+    "amplitude": amplitude,
+    "intensities": intensities,
+    if (sharpness != null) "sharpness": sharpness,
+    "sharpnesses": sharpnesses,
+  });
 
   /// This method is used to cancel an ongoing vibration.
   /// iOS: only works for custom haptic vibrations using `CHHapticEngine.

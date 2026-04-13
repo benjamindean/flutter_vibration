@@ -54,6 +54,12 @@ class Vibration {
   /// The default vibration duration is 500ms.
   /// Amplitude is a range from 1 to 255, if supported.
   ///
+  /// [sharpness] is iOS only. When provided, must be in the range 0.0 to 1.0.
+  /// When omitted, the iOS native fallback logic applies (intensity × 0.5).
+  ///
+  /// [sharpnesses] is iOS only. Per-segment sharpness values for pattern
+  /// vibrations, each in the range 0.0 to 1.0.
+  ///
   /// If [preset] is provided, it overrides other parameters and uses the preset configuration.
   ///
   /// ```dart
@@ -72,8 +78,8 @@ class Vibration {
     int repeat = -1,
     List<int> intensities = const [],
     int amplitude = -1,
-    // sharpness is iOS only
-    double sharpness = 0.5,
+    double? sharpness,
+    List<double> sharpnesses = const [],
     VibrationPreset? preset,
   }) async {
     if (preset != null) {
@@ -96,6 +102,7 @@ class Vibration {
       intensities: intensities,
       amplitude: amplitude,
       sharpness: sharpness,
+      sharpnesses: sharpnesses,
     );
   }
 

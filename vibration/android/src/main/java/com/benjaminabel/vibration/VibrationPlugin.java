@@ -34,7 +34,7 @@ public class VibrationPlugin implements FlutterPlugin {
         final Context context = flutterPluginBinding.getApplicationContext();
 
         Vibrator vibrator = ContextCompat.getSystemService(context, Vibrator.class);
-        
+
         if (vibrator != null) {
             return vibrator;
         }

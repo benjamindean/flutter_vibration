@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  vibration_platform_interface: ^0.1.1
+  vibration_platform_interface: ^0.2.0
   device_info_plus_ohos: ">=0.0.7 <1.0.0"
 
 # dependency_overrides:
