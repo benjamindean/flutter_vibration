@@ -1,3 +1,7 @@
+### 3.1.9
+
+- Adds missing `FlutterFramework` dependency to `Package.swift` for Swift Package Manager compatibility.
+
 ### 3.1.8
 
 - Fix `repeat` parameter ignored on iOS. (#145 by @zeienko-vitalii)
