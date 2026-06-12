@@ -1,3 +1,14 @@
+### 3.2.0
+
+> Note: This release has breaking changes.
+>
+> Plugin now requires the following:
+>
+> - Dart SDK >=3.11.0
+> - Flutter >=3.41.0
+
+- Adds missing `FlutterFramework` dependency to `Package.swift` for Swift Package Manager compatibility.
+
 ### 3.1.8
 
 - Fix `repeat` parameter ignored on iOS. (#145 by @zeienko-vitalii)
