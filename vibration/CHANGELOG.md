@@ -1,3 +1,7 @@
+### 3.2.1
+
+- Update minimum iOS target to 13.0 (#151 by @mfurkanyuceal)
+
 ### 3.2.0
 
 > Note: This release has breaking changes.
@@ -7,7 +11,8 @@
 > - Dart SDK >=3.11.0
 > - Flutter >=3.41.0
 
-- Adds missing `FlutterFramework` dependency to `Package.swift` for Swift Package Manager compatibility.
+- Adds missing `FlutterFramework` dependency to `Package.swift` for Swift
+  Package Manager compatibility.
 
 ### 3.1.8
 
@@ -15,7 +20,8 @@
 
 ### 3.1.7
 
-- Fix Android deprecation warning for VIBRATOR_SERVICE. (#144 by @zeienko-vitalii)
+- Fix Android deprecation warning for VIBRATOR_SERVICE. (#144 by
+  @zeienko-vitalii)
 
 ### 3.1.7-dev.1
 
@@ -62,8 +68,10 @@
 
 ### 3.0.0
 
-- The plugin has been recreated from scratch to align with the latest Flutter and Dart features.
-- The iOS version no longer depends on intensities and amplitude, and it now supports custom durations and patterns.
+- The plugin has been recreated from scratch to align with the latest Flutter
+  and Dart features.
+- The iOS version no longer depends on intensities and amplitude, and it now
+  supports custom durations and patterns.
 - The example app is more intuitive and user-friendly.
 - Calling the `hasVibrator` method is no longer necessary.
 - Adjustments for null safety have been implemented.
@@ -80,7 +88,8 @@
 ## 2.0.0
 
 - Remove references to Android embedding v1
-- Update package:web to ">=0.5.1 <2.0.0" (#105 by [dkrutskikh](https://github.com/dkrutskikh))
+- Update package:web to ">=0.5.1 <2.0.0" (#105 by
+  [dkrutskikh](https://github.com/dkrutskikh))
 
 ## 1.9.0
 
@@ -101,7 +110,8 @@
 
 ## 1.7.7
 
-- Adds a namespace attribute to the Android build.gradle, for compatibility with Android Gradle Plugin 8.0.
+- Adds a namespace attribute to the Android build.gradle, for compatibility with
+  Android Gradle Plugin 8.0.
 
 ## 1.7.6
 
@@ -137,11 +147,13 @@
 
 ## 1.5.0
 
-- Fibration now works in backgroud on Android (#40 by [wanghaiyang5241](https://github.com/wanghaiyang5241))
+- Fibration now works in backgroud on Android (#40 by
+  [wanghaiyang5241](https://github.com/wanghaiyang5241))
 
 ## 1.4.0
 
-- Added a `hasCustomVibrationsSupport` method (#34 by [Skyost](https://github.com/Skyost))
+- Added a `hasCustomVibrationsSupport` method (#34 by
+  [Skyost](https://github.com/Skyost))
 - Use Swift 5.0
 
 ## 1.3.1
@@ -150,7 +162,8 @@
 
 ## 1.3.0
 
-- Add support for CoreHaptics on iOS devices #30 (by [Leicas](https://github.com/Leicas))
+- Add support for CoreHaptics on iOS devices #30 (by
+  [Leicas](https://github.com/Leicas))
 
 ## 1.2.4
 
@@ -158,7 +171,8 @@
 
 ## 1.2.3
 
-- Add proper indication of async methods to docs (by [@qqgg231](https://github.com/qqgg231))
+- Add proper indication of async methods to docs (by
+  [@qqgg231](https://github.com/qqgg231))
 
 ## 1.2.2
 
@@ -170,12 +184,15 @@
 
 ## 1.2.0
 
-- Add support for amplitude control under Android 8.0 and later (by [@pmundt](https://github.com/pmundt))
+- Add support for amplitude control under Android 8.0 and later (by
+  [@pmundt](https://github.com/pmundt))
 
 ## 1.1.0
 
-- Migrate to AndroidX (by [@gastonmuijtjens](https://github.com/gastonmuijtjens))
-- Add unit test for canceling vibration (by [@vintage](https://github.com/vintage))
+- Migrate to AndroidX (by
+  [@gastonmuijtjens](https://github.com/gastonmuijtjens))
+- Add unit test for canceling vibration (by
+  [@vintage](https://github.com/vintage))
 
 ## 1.0.2
 
